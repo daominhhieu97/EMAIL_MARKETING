@@ -2,10 +2,8 @@
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models
 {
-    public class MailingList
+    public class Cluster
     {
-        public int ListId { get; set; }
-
         public string Title { get; set; }
 
         public List<Subscriber> Subscribers { get; set; }
