@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EMAIL_MARKETING_THESIS_PROJECT.Models;
+using EMAIL_MARKETING_THESIS_PROJECT.Views.Home;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
@@ -20,7 +21,13 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            CustomerViewModel viewModel = new CustomerViewModel 
+            {
+                UserName = "Hieu",
+                Pass = "Hieu",
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
