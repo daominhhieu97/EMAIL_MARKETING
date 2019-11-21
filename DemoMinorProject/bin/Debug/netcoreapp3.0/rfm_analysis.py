@@ -84,18 +84,10 @@ def rfm(inputfile, outputfile, inputdate):
 
    rfmSegmentation.to_csv(outputfile, sep=',')
 
-   segmentation = pd.read_csv(outputfile, sep=',')
-
-   for row in segmentation:
-        print row[0]
-      
+   print " "
    print " DONE! Check %s" % (outputfile)
    print " "
 
-class Subscriber:
-    def __init__(self, name, rate):
-        self.name = name
-        self.rate = rate
 # We create two classes for the RFM segmentation since, being high recency is bad, while high frequency and monetary value is good. 
 # Arguments (x = value, p = recency, monetary_value, frequency, k = quartiles dict)
 def RClass(x,p,d):

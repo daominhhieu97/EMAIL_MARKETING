@@ -1,63 +1,11 @@
-# Copyright (c) 2016 Joao Correia. All rights reserved.
-#
-# This program is licensed to you under the Apache License Version 2.0,
-# and you may not use this file except in compliance with the Apache License Version 2.0.
-# You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the Apache License Version 2.0 is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
-#
-# Version:     0.1.0
-# URL:         -
-#
-# Authors:     Joao Correia <joao.correia@gmail.com> https://joaocorreia.io
-# Copyright:   Copyright (c) 2016 Joao Correia
-# License:     Apache License Version 2.0
-#
-# If you have suggestions or improvements please contribute 
-# on https://github.com/joaolcorreia/RFM-analysis
-#
-#!/usr/bin/python
-
-import sys, getopt
+import sys
 import pandas as pd
 from datetime import datetime
 
-def main(argv):
-   inputfile = 'sample-orders.csv'
-   outputfile = 'rfm-table.csv'
-   inputdate = '2019-11-23'
-
-   try:
-      opts, args = getopt.getopt(argv,"hi:o:d:")
-   except getopt.GetoptError:
-      print 'RFM-analysis.py -i <orders.csv> -o <rfm-table.csv> -d <yyyy-mm-dd>'
-      sys.exit(2)
-   for opt, arg in opts:
-      if opt == '-h':
-         print 'RFM-analysis.py -i <orders.csv> -o <rfm-table.csv> -d "yyyy-mm-dd"'
-         sys.exit()
-      elif opt in ("-i", "--ifile"):
-         inputfile = arg
-      elif opt in ("-o", "--ofile"):
-         outputfile = arg   
-      elif opt in ("-d", "--dinputdate"):
-         inputdate = arg  
-
-   rfm(inputfile,outputfile,inputdate)
-
-
 def rfm(inputfile, outputfile, inputdate):
-   print " "
-   print "---------------------------------------------"
-   print " Calculating RFM segmentation for " + inputdate
-   print "---------------------------------------------"
 
    NOW = datetime.strptime(inputdate, "%Y-%m-%d")
-
-   # Open orders file
+   # Open sample-orders file
    orders = pd.read_csv(inputfile, sep=',')
    orders['order_date'] = pd.to_datetime(orders['order_date'])
    
@@ -84,18 +32,18 @@ def rfm(inputfile, outputfile, inputdate):
 
    rfmSegmentation.to_csv(outputfile, sep=',')
 
-   segmentation = pd.read_csv(outputfile, sep=',')
+   segmentation = pd.read_csv(inputfile, sep=',')
 
    for row in segmentation:
-        print row[0]
-      
-   print " DONE! Check %s" % (outputfile)
-   print " "
+       sub = Subscriber(row[0], row[3])
 
+   return row
+   
 class Subscriber:
     def __init__(self, name, rate):
         self.name = name
         self.rate = rate
+
 # We create two classes for the RFM segmentation since, being high recency is bad, while high frequency and monetary value is good. 
 # Arguments (x = value, p = recency, monetary_value, frequency, k = quartiles dict)
 def RClass(x,p,d):
@@ -118,8 +66,3 @@ def FMClass(x,p,d):
         return 2
     else:
         return 1
-
-
-
-if __name__ == "__main__":
-   main(sys.argv[1:])
