@@ -1,4 +1,4 @@
-﻿namespace EMAIL_MARKETING_THESIS_PROJECT.Models
+﻿namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Customer
 {
     public class Customer
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EMAIL_MARKETING_THESIS_PROJECT.Models
+namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 {
     public class Scheduler
     {
