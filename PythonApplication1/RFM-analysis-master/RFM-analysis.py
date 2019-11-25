@@ -84,11 +84,6 @@ def rfm(inputfile, outputfile, inputdate):
 
    rfmSegmentation.to_csv(outputfile, sep=',')
 
-   segmentation = pd.read_csv(outputfile, sep=',')
-
-   for row in segmentation:
-        print row[0]
-      
    print " DONE! Check %s" % (outputfile)
    print " "
 
