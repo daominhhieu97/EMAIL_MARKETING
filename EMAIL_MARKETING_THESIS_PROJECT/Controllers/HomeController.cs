@@ -21,13 +21,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult Index()
         {
-            CustomerViewModel viewModel = new CustomerViewModel 
-            {
-                UserName = "Hieu",
-                Pass = "Hieu",
-            };
-
-            return View(viewModel);
+           
+            return View();
         }
 
         public IActionResult Privacy()
