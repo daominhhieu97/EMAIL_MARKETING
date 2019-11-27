@@ -16,7 +16,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult Index()
         {
-           
             return View();
         }
 

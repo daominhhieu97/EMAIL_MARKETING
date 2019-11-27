@@ -8,9 +8,10 @@ using System.Linq;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    public class IncomeSpendingKMeanAnalyzer : IKmeanCustomerAnalyzer<Sub.IncomeSpendingSubscriber>
+    public class IncomeSpendingKMeanAnalyzer : IKmeanCustomerAnalyzer
     {
-        public Cluster<Sub.IncomeSpendingSubscriber>[] Analyze(MailingList<Sub.IncomeSpendingSubscriber> mailingList)
+
+        Cluster[] IKmeanCustomerAnalyzer.Analyze(MailingList mailingList, string categoryClass)
         {
             throw new NotImplementedException();
         }

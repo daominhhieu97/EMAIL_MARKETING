@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    public class GeographicFiltering : IFiltering<Subscriber>
+    public class GeographicFiltering : IFiltering
     {
-        public List<Subscriber> Filter(MailingList<Subscriber> list)
+        public List<Subscriber> Filter(MailingList list, Criteria criteria)
         {
             throw new NotImplementedException();
         }

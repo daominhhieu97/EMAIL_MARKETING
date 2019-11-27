@@ -2,13 +2,13 @@
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    public abstract class Criteria <T>
+    public  class Criteria
     {
-        public Criteria(Func<T,bool> predicate)
+        public Criteria(Func<Subscribers.Subscriber, bool> predicate)
         {
             this.Predicate = predicate;
         }
 
-        public Func<T, bool> Predicate { get; set; }
+        public Func<Subscribers.Subscriber, bool> Predicate { get; set; }
     }
 }

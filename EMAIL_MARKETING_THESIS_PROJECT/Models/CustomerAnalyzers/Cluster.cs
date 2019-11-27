@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    public class Cluster <T>
+    public class Cluster
     {
         public string Title { get; set; }
 
-        public List<T> Subscribers { get; set; }
+        public List<RFMSubscriber> Subscribers { get; set; }
     }
 }

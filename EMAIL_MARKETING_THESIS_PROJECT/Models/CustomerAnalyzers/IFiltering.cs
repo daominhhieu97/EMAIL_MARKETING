@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    public interface IFiltering<T>
+    public interface IFiltering
     {
-        public List<T> Filter(MailingList<T> list, Criteria criteria);
+        public List<Subscriber> Filter(MailingList list, Criteria criteria);
     }
 }

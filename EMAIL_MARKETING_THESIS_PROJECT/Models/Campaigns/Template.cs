@@ -2,6 +2,8 @@
 {
     public class Template
     {
+        public int TemplateId { get; set; }
+
         public byte[] Content { get; set; }
     }
 }

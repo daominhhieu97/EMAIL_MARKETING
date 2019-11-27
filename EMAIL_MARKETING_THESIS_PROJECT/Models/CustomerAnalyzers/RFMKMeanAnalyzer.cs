@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    public class RFMKMeanAnalyzer : IKmeanCustomerAnalyzer<Sub.RFMSubscriber>
+    public class RFMKMeanAnalyzer : IKmeanCustomerAnalyzer
     {
-        public Cluster<Sub.RFMSubscriber>[] Analyze(MailingList<Sub.RFMSubscriber> mailingList)
+        public Cluster[] Analyze(MailingList mailingList, string categoryClass)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
