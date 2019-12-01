@@ -26,7 +26,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddMvc();
+            
             services.AddDbContext<ProjectContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
         }
@@ -49,13 +50,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+               app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+        });
         }
     }
 }

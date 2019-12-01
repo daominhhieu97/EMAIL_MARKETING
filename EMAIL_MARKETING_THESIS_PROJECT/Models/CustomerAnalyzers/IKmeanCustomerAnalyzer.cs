@@ -2,8 +2,8 @@
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
-    interface IKmeanCustomerAnalyzer
+    public interface IKmeanCustomerAnalyzer
     {
-        public Cluster[] Analyze(MailingList mailingList, string categoryClass);
+        public MailingList Analyze(MailingList mailingList, string categoryClass);
     }
 }

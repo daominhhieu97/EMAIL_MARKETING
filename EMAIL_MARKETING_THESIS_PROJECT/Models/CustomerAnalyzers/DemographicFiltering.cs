@@ -7,7 +7,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
     public class DemographicFiltering : IFiltering
     {
-        public List<Subscriber> Filter(MailingList list, Criteria criteria)
+
+        public MailingList Filter(MailingList list, Criteria[] criteria)
         {
             throw new NotImplementedException();
         }

@@ -1,9 +1,11 @@
-﻿namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
+﻿using System.Collections.Generic;
+
+namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 {
     public class Template
     {
-        public int TemplateId { get; set; }
+        public int Id { get; set; }
 
-        public byte[] Content { get; set; }
+        public string TemplatePath { get; set; }
     }
 }

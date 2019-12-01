@@ -1,4 +1,7 @@
-﻿namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
+﻿using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
+using System.Collections.Generic;
+
+namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
 {
     public class Subscriber
     {
@@ -15,5 +18,7 @@
         public string City { get; set; }
 
         public string Area { get; set; }
+
+        public virtual List<MailingListSubscriber> MailingListsLink { get; set; }
     }
 }

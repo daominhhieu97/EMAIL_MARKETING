@@ -1,15 +1,22 @@
-﻿namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
+﻿using System;
+
+namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 {
     public class Campaign
     {
-        public long Id { get; set; }
-
+        public int Id { get; set; }
+        
         public string Title { get; set; }
 
-        public EmailTemplate Email { get; set; }
+        public virtual EmailTemplate EmailInfo { get; set; }
 
-        public MailingList MailingList { get; set; }
+        public virtual MailingList MailingList { get; set; }
 
-        public Scheduler Scheduler { get; set; }
+        public virtual Scheduler Scheduler { get; set; }
+
+        internal void Update(object editParts)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

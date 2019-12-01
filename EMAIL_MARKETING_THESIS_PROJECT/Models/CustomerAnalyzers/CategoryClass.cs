@@ -2,7 +2,7 @@
 {
     public abstract class CategoryClass
     {
-        public string Champion;
+        public  string Champion;
 
         public string NeedToTakeCare;
 
@@ -11,11 +11,11 @@
 
     public class RFMCategoryClass : CategoryClass
     {
-        public string Champion => "444";
+        public const string Champion = "144";
 
-        public string NeedToTakeCare => "111";
+        public const string NeedToTakeCare = "111";
 
-        public string NormalCustomer => "222";
+        public const string NormalCustomer = "222";
     }
 
     public class IncomeCategoryClass : CategoryClass

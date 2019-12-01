@@ -1,9 +1,7 @@
 ﻿using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Customer;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 {
@@ -24,7 +22,35 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             MapScheduler(modelBuilder);
             MapTemplate(modelBuilder);
             MapCustomer(modelBuilder);
-            MapSubsciber(modelBuilder);            
+            MapSubsciber(modelBuilder);
+            MapRFMSubscriber(modelBuilder);
+            MapMailingListSubscriber(modelBuilder);
+        }
+
+        private void MapMailingListSubscriber(ModelBuilder modelBuilder)
+        {
+            var entity = modelBuilder.Entity<MailingListSubscriber>();
+
+            entity.HasOne(ms => ms.MailingList)
+                .WithMany(m => m.SubscribersLink)
+                .HasForeignKey(ms => ms.MailingListId);
+
+            entity.HasOne(ms => ms.Subscriber)
+                .WithMany(ml => ml.MailingListsLink)
+                .HasForeignKey(ms => ms.SubscriberId);
+        }
+
+        private void MapRFMSubscriber(ModelBuilder modelBuilder)
+        {
+            
+            var entity = modelBuilder.Entity<RFMSubscriber>();
+
+            entity.Property(e => e.RClass).IsRequired().HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.FClass).IsRequired().HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.MClass).IsRequired().HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.RFMClass)
+                .IsRequired()
+                .HasColumnType("nvarchar(MAX)");
         }
 
         private void MapCampaign(ModelBuilder modelBuilder)
@@ -35,11 +61,12 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             entity.Property(camp => camp.Id).ValueGeneratedOnAdd();
 
             entity.Property(camp => camp.Title)
-                .HasColumnType("nvarchar")
-                .HasMaxLength(256);
+                .HasColumnType("nvarchar(MAX)");
+                
 
-            entity.HasOne(camp => camp.Email).WithOne(email => email.Campaign);
-            entity.HasOne(camp => camp.Scheduler).WithOne(scheduler => scheduler.Campaign);
+            entity.HasOne(camp => camp.EmailInfo).WithOne(email => email.Campaign).HasForeignKey<EmailTemplate>(e => e.CampaignId);
+
+            entity.HasOne(camp => camp.Scheduler).WithOne(scheduler => scheduler.Campaign).HasForeignKey<Scheduler>(s => s.CampaignId);
         }
 
         private void MapEmailTemplate(ModelBuilder modelBuilder)
@@ -49,9 +76,13 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             entity.HasKey(email => email.Id);
             entity.Property(email => email.Id).ValueGeneratedOnAdd();
 
-            entity.Property(email => email.Receiver).HasMaxLength(256).HasColumnType("nvarchar").IsRequired(true);
-            entity.Property(email => email.Subject).HasMaxLength(256).HasColumnType("nvarchar").IsRequired(true);
-            entity.Property(email => email.Sender).HasMaxLength(256).HasColumnType("nvarchar").IsRequired(true);
+            entity.Property(email => email.Subject)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
+
+            entity.Property(e => e.Sender)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
         }
 
         private void MapMailingList(ModelBuilder modelBuilder)
@@ -60,7 +91,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 
             entity.HasKey(m => m.Id);
             entity.Property(m => m.Id).ValueGeneratedOnAdd();
-            entity.Property(m => m.Title).HasMaxLength(256).HasColumnType("nvarchar").IsRequired(true);
+            entity.Property(m => m.Title)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired(true);
         }
 
         private void MapScheduler(ModelBuilder modelBuilder)
@@ -71,25 +104,59 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.Property(e => e.IsSendNow).HasColumnType("bit");
             entity.Property(e => e.SendOn).HasColumnType("datetime");
-            entity.HasOne(e => e.Campaign).WithOne(c => c.Scheduler);
         }
 
         private void MapTemplate(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<Template>();
 
-            entity.HasKey(e => e.TemplateId);
-            entity.Property(e => e.TemplateId).ValueGeneratedOnAdd();
-            entity.Property(e => e.Content).HasColumnType("byte").IsRequired();            
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.TemplatePath).HasColumnType("nvarchar(256)").IsRequired();            
         }
 
         private void MapCustomer(ModelBuilder modelBuilder)
         {
+            var entity = modelBuilder.Entity<Customer>();
+
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Username)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
+            entity.Property(e => e.Password)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
+            entity.Property(e => e.Name)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
         }
 
         private void MapSubsciber(ModelBuilder modelBuilder)
         {
-            throw new NotImplementedException();
+            var entity = modelBuilder.Entity<Subscriber>();
+
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Email)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
+
+            entity.Property(e => e.Phone)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
+
+            entity.Property(e => e.Name)
+                .HasColumnType("nvarchar(MAX)");
+
+            entity.Property(e => e.City)
+                .HasColumnType("nvarchar(MAX)");
+
+            entity.Property(e => e.Area)
+                .HasColumnType("nvarchar(MAX)");
+
+            entity.Property(e => e.Age)
+                .HasColumnType("int");
         }
     }
 }

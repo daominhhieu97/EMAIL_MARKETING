@@ -9,7 +9,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
     public class RFMKMeanAnalyzer : IKmeanCustomerAnalyzer
     {
-        public Cluster[] Analyze(MailingList mailingList, string categoryClass)
+        MailingList IKmeanCustomerAnalyzer.Analyze(MailingList mailingList, string categoryClass)
         {
             throw new NotImplementedException();
         }
