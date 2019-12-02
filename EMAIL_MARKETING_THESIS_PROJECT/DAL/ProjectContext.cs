@@ -31,6 +31,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
         {
             var entity = modelBuilder.Entity<MailingListSubscriber>();
 
+            entity.HasKey(e => new { e.MailingListId, e.SubscriberId });
+
             entity.HasOne(ms => ms.MailingList)
                 .WithMany(m => m.SubscribersLink)
                 .HasForeignKey(ms => ms.MailingListId);
@@ -112,7 +114,13 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.TemplatePath).HasColumnType("nvarchar(256)").IsRequired();            
+            entity.Property(e => e.Name)
+                .HasColumnType("nvarchar(256)")
+                .IsRequired();
+
+            entity.Property(e => e.Content)
+                .HasColumnType("VARBINARY(8000)");
+
         }
 
         private void MapCustomer(ModelBuilder modelBuilder)

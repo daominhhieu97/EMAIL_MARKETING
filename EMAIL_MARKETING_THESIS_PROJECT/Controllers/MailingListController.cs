@@ -26,7 +26,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult GetMailingLists()
         {
-            var viewModel = context.Set<MailingList>().ToList();
+            var viewModel = context.Set<MailingList>()
+                .Include(m => m.SubscribersLink)
+                .ToList();
 
             return View(viewModel);
         }
@@ -48,7 +50,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
                 .Include(m => m.SubscribersLink)
                 .Single(m => m.Id == id);
 
-            var subscribers = GetSubscribers(mailingList.SubscribersLink);
+            var subscribers = GetSubscribers(mailingList);
 
             var viewModel = new MailingListDetailsViewModel()
             {
@@ -59,9 +61,14 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return View(viewModel);
         }
 
-        private object GetSubscribers(List<MailingListSubscriber> subscribersLink)
+        private List<Subscriber> GetSubscribers(MailingList mailingList)
         {
-            throw new NotImplementedException();
+            List<Subscriber> subscribers = context.Set<MailingListSubscriber>()
+                .Where(ms => ms.MailingListId == mailingList.Id)
+                .Select(ms => ms.Subscriber)
+                .ToList();
+
+            return subscribers;
         }
 
         public void Delete(int id)
@@ -73,20 +80,17 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             context.SaveChanges();
         }
 
-        public void Edit(int id, string name)
+        
+        public void Edit(MailingList viewModel)
         {
-            var mailingList= context.Set<MailingList>().Single(m => m.Id == id);
+            var mailingList= context.Set<MailingList>().Single(m => m.Id == viewModel.Id);
 
-            mailingList.UpdateTitle(name);
+            mailingList.Update(viewModel);
 
             context.SaveChanges();            
         }
-        [HttpGet]
-        public IActionResult AddContacts()
-        {
-            return View();
-        }
 
+        
         [HttpPost]
         public IActionResult AddContacts(int mailingListId, Subscriber[] subscribers) 
         {

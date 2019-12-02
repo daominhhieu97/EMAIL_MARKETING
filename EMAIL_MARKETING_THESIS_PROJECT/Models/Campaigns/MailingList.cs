@@ -22,9 +22,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 
         public virtual List<MailingListSubscriber> SubscribersLink  { get; set; }
 
-        internal void UpdateTitle(string name)
+        internal void Update(MailingList updatedMailingList)
         {
-            this.Title = name;
+            this.Title = updatedMailingList.Title;
         }
     }
 }

@@ -23,61 +23,41 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult Create()
         {
-            var viewModel = CreatCampaignViewModel();
+            var viewModel = new Campaign();
 
             return View(viewModel);
         }
 
-        private object CreatCampaignViewModel()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IActionResult Create(CreateCampaignRequest request)
+        public IActionResult Create(Campaign viewModel)
         {
             var campaign = new Campaign
             {
-                Title = request.Title,
-                EmailInfo = CreateEmailInfo(request),
-                MailingList = CreateMailingList(request),
-                Scheduler = CreateScheduler(request)
+                Title = viewModel.Title,
+                EmailInfo = viewModel.EmailInfo,
+                MailingList = viewModel.MailingList,
+                Scheduler = viewModel.Scheduler
             };
 
             context.Set<Campaign>().Add(campaign);
 
             context.SaveChanges();
 
-            return RedirectToAction("Details", "Campaign", new { @id = request.CampaignId });
-        }
-
-        private Scheduler CreateScheduler(CreateCampaignRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        private MailingList CreateMailingList(CreateCampaignRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        private EmailTemplate CreateEmailInfo(CreateCampaignRequest request)
-        {
-            throw new NotImplementedException();
+            return RedirectToAction("Details", "Campaign", new { @id = viewModel.Id });
         }
 
         [HttpGet]
-        public IActionResult Edit(int campaignId)
+        public IActionResult Edit(int id)
         {
-            var campaign = context.Set<Campaign>().Single(c => c.Id == campaignId);
+            var campaign = context.Set<Campaign>().Single(c => c.Id == id);
 
             return View(campaign);
         }
 
-        public IActionResult Edit(EditCampaignRequest request)
+        public IActionResult Edit(Campaign viewModel)
         {
-            var campaign = context.Set<Campaign>().Single(c => c.Id == request.CampaignId);
+            var campaign = context.Set<Campaign>().Single(c => c.Id == viewModel.Id);
 
-            campaign.Update(request.EditParts);
+            campaign.Update(viewModel);
 
             return RedirectToAction("Details", "Campaign", new { @id = campaign.Id});
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,9 +28,17 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
         {
             services.AddControllersWithViews();
             services.AddMvc();
-            
+            RegisterDependencies(services);
             services.AddDbContext<ProjectContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
+        }
+
+        private void RegisterDependencies(IServiceCollection services)
+        {
+            services.AddSingleton(new DemographicFiltering());
+            services.AddSingleton(new GeographicFiltering());
+            services.AddScoped<IKmeanCustomerAnalyzer, RFMKMeanAnalyzer>();
+            services.AddScoped<IKmeanCustomerAnalyzer, IncomeSpendingKMeanAnalyzer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +61,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             app.UseAuthorization();
                app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+            endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
         });
         }
     }

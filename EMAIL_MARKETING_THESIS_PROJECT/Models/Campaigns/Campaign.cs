@@ -14,7 +14,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 
         public virtual Scheduler Scheduler { get; set; }
 
-        internal void Update(object editParts)
+        public void Update(Campaign updatedCampaign)
         {
             throw new NotImplementedException();
         }

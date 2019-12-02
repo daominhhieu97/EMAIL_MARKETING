@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
@@ -26,33 +29,53 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             this.kmeanCustomerAnalyzer = kmeanCustomerAnalyzer;
         }
 
-        public IActionResult AddSegment(int mailingListId, string name, string categoryType, Criteria[] criterias)
+        public IActionResult AddSegment(
+            int mailingListId, 
+            string name, 
+            string  subscriberRateClass,
+            string categoryType, 
+            Criteria[] criterias)
         {
-            var mailingList = context.Set<MailingList>().Single(m => m.Id == mailingListId);
+            var mailingList = context.Set<MailingList>()
+                .Include(m => m.SubscribersLink)
+                .Single(m => m.Id == mailingListId);
 
-            var segmentedMailingList = SegmentSubscriber(mailingList, name,  categoryType, criterias);
+            var segmentedMailingList = SegmentSubscriber(mailingList, name,  categoryType, subscriberRateClass, criterias);
             
-            return View(segmentedMailingList);
+            return RedirectToAction("Details", "MailingList", segmentedMailingList.Id);
         }
 
-        private MailingList SegmentSubscriber(MailingList mailingList, string name, string categoryType, Criteria[] criterias)
+        private MailingList SegmentSubscriber(
+            MailingList mailingList, 
+            string name, 
+            string categoryType, 
+            string subscriberRateClass, 
+            Criteria[] criterias)
         {
             var segmentedMailingList = new MailingList(name);
+            var subscribers = new List<RFMSubscriber>();
 
             switch (categoryType)
             {
                 case CategoryTypes.DEMOGRAPHIC:
-                    segmentedMailingList = demographicFiltering.Filter(mailingList, criterias);
+                    subscribers = demographicFiltering.Filter(mailingList, criterias);
                     break;
                 case CategoryTypes.GEOGRAPHIC:
-                    segmentedMailingList = geographicFiltering.Filter(mailingList, criterias);
+                    subscribers = geographicFiltering.Filter(mailingList, criterias);
                     break;
                 case CategoryTypes.KMEANS:
-                    segmentedMailingList = kmeanCustomerAnalyzer.Analyze(mailingList, RFMCategoryClass.Champion);
+                    subscribers = kmeanCustomerAnalyzer.Analyze(mailingList, subscriberRateClass);
                     break;
             }
 
+            CreateNewMailingListWithSubscriber(segmentedMailingList, subscribers);
+
             return segmentedMailingList;
+        }
+
+        private void CreateNewMailingListWithSubscriber(MailingList segmentedMailingList, List<RFMSubscriber> subscribers)
+        {
+            throw new NotImplementedException();
         }
     }
 }
