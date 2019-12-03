@@ -7,12 +7,12 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
 {
     public class RFMSubscriber : Subscriber
     {
-        public int RClass { get; set; }
+        public int? RClass { get; set; }
 
-        public int FClass { get; set; }
+        public int? FClass { get; set; }
 
-        public int MClass { get; set; }
+        public int? MClass { get; set; }
 
-        public string RFMClass { get; set; }
+        public string? RFMClass { get; set; }
     }
 }

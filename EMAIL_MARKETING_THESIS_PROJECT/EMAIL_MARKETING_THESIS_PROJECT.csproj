@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Views\frontend\img\email_marketing_background.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IronPython" Version="2.7.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
@@ -17,8 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Folder Include="RFMFiles\" />
     <Folder Include="Views\frontend\js\MailingList\" />
   </ItemGroup>
-
 </Project>

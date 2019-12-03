@@ -8,19 +8,19 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
     {
         public MailingList()
         {
-
         }
 
         public MailingList(string name)
         {
             this.Title = name;
+            this.SubscribersLink = new List<MailingListSubscriber>();
         }
 
         public int Id { get; set; }
 
         public string Title { get; set; }
 
-        public virtual List<MailingListSubscriber> SubscribersLink  { get; set; }
+        public virtual List<MailingListSubscriber> SubscribersLink { get; set; }
 
         internal void Update(MailingList updatedMailingList)
         {

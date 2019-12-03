@@ -1,26 +1,3 @@
-# Copyright (c) 2016 Joao Correia. All rights reserved.
-#
-# This program is licensed to you under the Apache License Version 2.0,
-# and you may not use this file except in compliance with the Apache License Version 2.0.
-# You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
-#
-# Unless required by applicable law or agreed to in writing,
-# software distributed under the Apache License Version 2.0 is distributed on an
-# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
-#
-# Version:     0.1.0
-# URL:         -
-#
-# Authors:     Joao Correia <joao.correia@gmail.com> https://joaocorreia.io
-# Copyright:   Copyright (c) 2016 Joao Correia
-# License:     Apache License Version 2.0
-#
-# If you have suggestions or improvements please contribute 
-# on https://github.com/joaolcorreia/RFM-analysis
-#
-#!/usr/bin/python
-
 import sys, getopt
 import pandas as pd
 from datetime import datetime
@@ -28,7 +5,7 @@ from datetime import datetime
 def main(argv):
    inputfile = 'sample-orders.csv'
    outputfile = 'rfm-table.csv'
-   inputdate = '2019-11-23'
+   inputdate = '2019-12-02'
 
    try:
       opts, args = getopt.getopt(argv,"hi:o:d:")
@@ -61,7 +38,7 @@ def rfm(inputfile, outputfile, inputdate):
    orders = pd.read_csv(inputfile, sep=',')
    orders['order_date'] = pd.to_datetime(orders['order_date'])
    
-   rfmTable = orders.groupby('customer').agg({'order_date': lambda x: (NOW - x.max()).days, # Recency
+   rfmTable = orders.groupby('customer').agg({'Email': lambda x : x['email'], 'order_date': lambda x: (NOW - x.max()).days, # Recency
                                               'order_id': lambda x: len(x),      # Frequency
                                               'grand_total': lambda x: x.sum()}) # Monetary Value
 
@@ -75,7 +52,6 @@ def rfm(inputfile, outputfile, inputdate):
    quantiles = quantiles.to_dict()
 
    rfmSegmentation = rfmTable
-
    rfmSegmentation['R_Quartile'] = rfmSegmentation['recency'].apply(RClass, args=('recency',quantiles,))
    rfmSegmentation['F_Quartile'] = rfmSegmentation['frequency'].apply(FMClass, args=('frequency',quantiles,))
    rfmSegmentation['M_Quartile'] = rfmSegmentation['monetary_value'].apply(FMClass, args=('monetary_value',quantiles,))

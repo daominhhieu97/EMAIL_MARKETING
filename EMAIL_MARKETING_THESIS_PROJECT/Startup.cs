@@ -29,7 +29,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddControllersWithViews();
             services.AddMvc();
             RegisterDependencies(services);
-            services.AddDbContext<ProjectContext>(options => 
+            services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
         }
 
@@ -38,7 +38,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddSingleton(new DemographicFiltering());
             services.AddSingleton(new GeographicFiltering());
             services.AddScoped<IKmeanCustomerAnalyzer, RFMKMeanAnalyzer>();
-            services.AddScoped<IKmeanCustomerAnalyzer, IncomeSpendingKMeanAnalyzer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,10 +58,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             app.UseRouting();
 
             app.UseAuthorization();
-               app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-        });
+            app.UseEndpoints(endpoints =>
+     {
+         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+     });
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public abstract class SubscriberRateClass
     {
-        public  string Champion;
+        public string Champion;
 
         public string NeedToTakeCare;
 
@@ -26,6 +26,5 @@
 
     public class IncomeSubscriberRateClass : SubscriberRateClass
     {
-
     }
 }

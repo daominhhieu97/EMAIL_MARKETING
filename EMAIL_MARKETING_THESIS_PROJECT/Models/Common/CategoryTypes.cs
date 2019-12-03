@@ -6,6 +6,6 @@
 
         public const string GEOGRAPHIC = "Geographic";
 
-        public const string KMEANS= "KMEANS";
+        public const string KMEANS= "Kmeans";
     }
 }

@@ -5,28 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
-            <div class="container mx-auto">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 text-center">
+            <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Campaign" asp-action="CreateNewCampaign">New Campaign</a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MailingList" asp-action="GetMailingLists">Mailing Lists</a>
+                            <a class="nav-link text-white" asp-controller="Campaign" asp-action="Create">NEW CAMPAIGN</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Campaign" asp-action="GetCampaignsList">My Campaigns</a>
+                            <a class="nav-link text-white" asp-controller="MailingList" asp-action="GetMailingLists">MAILING LISTS</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="EmailTemplate" asp-action="GetTemplates">Email Templates</a>
+                            <a class="nav-link text-white" asp-controller="Campaign" asp-action="GetCampaignsList">MY CAMPAIGNS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-controller="EmailTemplate" asp-action="GetTemplates">EMAIL TEMPLATES</a>
                         </li>
                     </ul>
                 </div>
@@ -39,11 +43,6 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - EMAIL MARKETING THESIS PROJECT - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

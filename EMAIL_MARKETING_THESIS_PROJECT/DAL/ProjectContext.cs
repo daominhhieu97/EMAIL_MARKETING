@@ -7,9 +7,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 {
     public class ProjectContext : DbContext
     {
-        public ProjectContext(DbContextOptions<ProjectContext> options ) : base(options)
+        public ProjectContext(DbContextOptions<ProjectContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,24 +34,23 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 
             entity.HasOne(ms => ms.MailingList)
                 .WithMany(m => m.SubscribersLink)
-                .HasForeignKey(ms => ms.MailingListId);
+                .HasForeignKey(ms => ms.MailingListId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(ms => ms.Subscriber)
                 .WithMany(ml => ml.MailingListsLink)
-                .HasForeignKey(ms => ms.SubscriberId);
+                .HasForeignKey(ms => ms.SubscriberId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         private void MapRFMSubscriber(ModelBuilder modelBuilder)
         {
-            
             var entity = modelBuilder.Entity<RFMSubscriber>();
 
-            entity.Property(e => e.RClass).IsRequired().HasColumnType("nvarchar(MAX)");
-            entity.Property(e => e.FClass).IsRequired().HasColumnType("nvarchar(MAX)");
-            entity.Property(e => e.MClass).IsRequired().HasColumnType("nvarchar(MAX)");
-            entity.Property(e => e.RFMClass)
-                .IsRequired()
-                .HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.RClass).HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.FClass).HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.MClass).HasColumnType("nvarchar(MAX)");
+            entity.Property(e => e.RFMClass).HasColumnType("nvarchar(MAX)");
         }
 
         private void MapCampaign(ModelBuilder modelBuilder)
@@ -64,7 +62,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 
             entity.Property(camp => camp.Title)
                 .HasColumnType("nvarchar(MAX)");
-                
 
             entity.HasOne(camp => camp.EmailInfo).WithOne(email => email.Campaign).HasForeignKey<EmailTemplate>(e => e.CampaignId);
 
@@ -120,7 +117,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
 
             entity.Property(e => e.Content)
                 .HasColumnType("VARBINARY(8000)");
-
         }
 
         private void MapCustomer(ModelBuilder modelBuilder)
@@ -151,8 +147,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
                 .IsRequired();
 
             entity.Property(e => e.Phone)
-                .HasColumnType("nvarchar(MAX)")
-                .IsRequired();
+                .HasColumnType("nvarchar(MAX)");
 
             entity.Property(e => e.Name)
                 .HasColumnType("nvarchar(MAX)");
@@ -166,5 +161,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             entity.Property(e => e.Age)
                 .HasColumnType("int");
         }
+
+        public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Campaign> Campaign { get; set; }
     }
 }

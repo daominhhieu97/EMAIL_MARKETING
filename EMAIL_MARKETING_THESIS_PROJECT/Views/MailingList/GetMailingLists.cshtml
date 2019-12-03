@@ -5,36 +5,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>GetMailingLists</h1>
+<div>
+    <button type="button" class="btn btn-info" asp-action="Create" asp-controller="MailingList">New Mailing List</button>
+</div>
 
-<p>
-    <a asp-action="Create">New Mailing List</a>
-</p>
+<br />
+
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
         <tr>
-            <th>
+            <td>
                 @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>No. of contacts</th>
-            <th></th>
+            </td>
+            <td>No. of contacts</td>
+            <td>Action</td>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @item.SubscribersLink.Count()
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </th>
+                <td>
+                    @item.SubscribersLink.Count()
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-action="Edit" asp-controller="MailingList" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-info" asp-action="Details" asp-controller="MailingList" asp-route-id="@item.Id"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                    <a class="btn btn-info" asp-action="Delete" asp-controller="MailingList" asp-route-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
