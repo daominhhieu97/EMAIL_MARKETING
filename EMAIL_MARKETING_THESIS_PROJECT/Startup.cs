@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
+using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +33,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
         {
             services.AddSingleton(new DemographicFiltering());
             services.AddSingleton(new GeographicFiltering());
+            services.AddScoped(typeof(EmailSender));
             services.AddScoped<IKmeanCustomerAnalyzer, RFMKMeanAnalyzer>();
         }
 

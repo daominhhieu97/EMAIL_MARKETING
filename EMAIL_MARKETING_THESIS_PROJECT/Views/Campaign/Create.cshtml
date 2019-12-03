@@ -22,6 +22,9 @@
                 <h4>Sender email address</h4>
                 @Html.TextBoxFor(m => m.Campaign.EmailInfo.Sender)
 
+                <p>Name:</p>
+                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Name)
+
                 <p>Subject line:</p>
                 @Html.TextBoxFor(m => m.Campaign.EmailInfo.Subject)
             </div>
