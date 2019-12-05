@@ -57,12 +57,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             context.SaveChanges();
 
-            if (campaign.Scheduler.IsSendNow)
-            {
-                await emailSender.SendEmail(campaign);
-            }
+            await emailSender.SendEmail(campaign);
 
-            return RedirectToAction("Index", "Campaign");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -79,7 +76,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             campaign.Update(viewModel);
 
-            return RedirectToAction("Details", "Campaign", new { @id = campaign.Id });
+            return RedirectToAction("Details", "Campaign", new { id = campaign.Id });
         }
 
         [HttpGet]
@@ -90,13 +87,15 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return View(campaign);
         }
 
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var campaign = context.Set<Campaign>().Single(c => c.Id == id);
 
             context.Set<Campaign>().Remove(campaign);
 
             context.SaveChanges();
+
+            return RedirectToAction("Index", "Campaign");
         }
 
         public async Task<IActionResult> SendEmailAsync(int id)

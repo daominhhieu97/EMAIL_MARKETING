@@ -5,6 +5,7 @@ using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists;
+using IronPython.Runtime.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +14,12 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
     public class MailingListController : Controller
     {
         private readonly ProjectContext context;
+        private readonly SubscriberParser parser;
 
-        public MailingListController(ProjectContext projectContext)
+        public MailingListController(ProjectContext projectContext, SubscriberParser parser)
         {
             this.context = projectContext;
+            this.parser = parser;
         }
 
         public IActionResult Index()
@@ -33,15 +36,22 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult Create(string name)
+        public IActionResult Create()
         {
-            MailingList mailingList = new MailingList(name);
+            var mailingList = new MailingList();
+
+            return View(mailingList);
+        }
+
+        [HttpPost]
+        public IActionResult Create(MailingList createMailingList)
+        {
+            var mailingList = new MailingList(createMailingList.Title);
 
             context.Set<MailingList>().Add(mailingList);
             context.SaveChanges();
 
-            return RedirectToAction("Details", "MailingList", new { @id = mailingList.Id });
+            return RedirectToAction("Details", "MailingList", new { id = mailingList.Id });
         }
 
         public IActionResult Details(int id)
@@ -56,7 +66,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 MailingList = mailingList,
                 Subscribers = subscribers,
-                AddSegmentationViewModel = new AddSegmentationViewModel { MailingListId = mailingList.Id }
+                AddSegmentationViewModel = new AddSegmentationViewModel { MailingListId = mailingList.Id },
+                AddContactsViewModel = new AddContactsViewModel { MailingListId = mailingList.Id }
             };
 
             return View(viewModel);
@@ -83,14 +94,24 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return RedirectToAction("GetMailingLists", "MailingList");
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var mailingList = context.Set<MailingList>().Single(m => m.Id == id);
+
+            return View(mailingList);
+        }
+
         [HttpPost]
-        public void Edit(MailingList viewModel)
+        public IActionResult Edit(MailingList viewModel)
         {
             var mailingList = context.Set<MailingList>().Single(m => m.Id == viewModel.Id);
 
-            mailingList.Update(viewModel);
+            mailingList.Update(viewModel.Title);
 
             context.SaveChanges();
+
+            return RedirectToAction("Details", "MailingList", new { id = mailingList.Id });
         }
 
         [HttpPost]
@@ -111,7 +132,30 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
                 context.SaveChanges();
             }
 
-            return RedirectToAction("Details", "MailingList", new { @id = mailingListId });
+            return RedirectToAction("Details", "MailingList", new { id = mailingListId });
+        }
+
+        [HttpPost]
+        public IActionResult AddContact(MailingListDetailsViewModel viewModel)
+        {
+            var mailingList = context.Set<MailingList>().Include(m => m.SubscribersLink).Single(m => m.Id == viewModel.AddContactsViewModel.MailingListId);
+
+            var subscribers = parser.Parse(viewModel.AddContactsViewModel.Subscribers);
+
+            foreach (var rfmSubscriber in subscribers)
+            {
+                var mlSub = new MailingListSubscriber
+                {
+                    MailingList = mailingList,
+                    Subscriber = rfmSubscriber
+                };
+
+                mailingList.SubscribersLink.Add(mlSub);
+            }
+
+            context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = mailingList.Id });
         }
     }
 }

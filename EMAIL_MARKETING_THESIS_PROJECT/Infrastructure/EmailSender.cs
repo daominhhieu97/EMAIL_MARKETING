@@ -27,14 +27,16 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
                 .Select(ms => ms.Subscriber)
                 .ToList();
 
+            var sendOn = campaign.Scheduler.SendOn ?? campaign.Scheduler.SendOn;
+
             foreach (var subscriber in subscribers)
             {
                 try
                 {
-                    MimeMessage message = CreateMimeMessage(campaign, subscriber);
+                    var message = CreateMimeMessage(campaign, subscriber);
                     message.Body = CreateMessageBody();
 
-                    SmtpClient client = new SmtpClient();
+                    var client = new SmtpClient();
                     client.Connect("smtp.gmail.com", 465, true);
                     client.Authenticate("hieudm97@gmail.com", "hieudm231197");
                     await client.SendAsync(message);
@@ -49,9 +51,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
             }
         }
 
-        private MimeEntity CreateMessageBody()
+        private static MimeEntity CreateMessageBody()
         {
-            BodyBuilder bodyBuilder = new BodyBuilder
+            var bodyBuilder = new BodyBuilder
             {
                 TextBody = "Hello World!"
             };
@@ -59,17 +61,20 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
             return bodyBuilder.ToMessageBody();
         }
 
-        private MimeMessage CreateMimeMessage(Campaign campaign, Subscriber subscriber)
+        private static MimeMessage CreateMimeMessage(Campaign campaign, Subscriber subscriber)
         {
-            MimeMessage message = new MimeMessage();
+            var message = new MimeMessage();
 
-            MailboxAddress from = new MailboxAddress(campaign.EmailInfo.Name, campaign.EmailInfo.Sender);
+            var from = new MailboxAddress(campaign.EmailInfo.Name, campaign.EmailInfo.Sender);
             message.From.Add(from);
 
-            MailboxAddress to = new MailboxAddress(subscriber.Name, subscriber.Email);
+            var to = new MailboxAddress(subscriber.Name, subscriber.Email);
             message.To.Add(to);
 
             message.Subject = campaign.EmailInfo.Subject;
+
+            if (campaign.Scheduler.SendOn != null)
+                message.Date = (DateTimeOffset)campaign.Scheduler.SendOn;
 
             return message;
         }

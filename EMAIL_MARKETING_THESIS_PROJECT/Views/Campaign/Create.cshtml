@@ -9,35 +9,38 @@
 <hr />
 @using (Html.BeginForm("Create", "Campaign", FormMethod.Post))
 {
-    <div class="container">
-        <h4>New Email Campaign</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <p>Title:</p>
-                @Html.TextBoxFor(m => m.Campaign.Title)
+<div class="container">
+    <h4>New Email Campaign</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Title:</p>
+            @Html.TextBoxFor(m => m.Campaign.Title)
 
-                <p>Mailing lists:</p>
-                @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems())
+            <p>Mailing lists:</p>
+            @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems())
 
-                <h4>Sender email address</h4>
-                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Sender)
+            <h4>Sender email address</h4>
+            @Html.TextBoxFor(m => m.Campaign.EmailInfo.Sender)
 
-                <p>Name:</p>
-                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Name)
+            <p>Name:</p>
+            @Html.TextBoxFor(m => m.Campaign.EmailInfo.Name)
 
-                <p>Subject line:</p>
-                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Subject)
-            </div>
+            <p>Subject line:</p>
+            @Html.TextBoxFor(m => m.Campaign.EmailInfo.Subject)
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Sending the campaign</h4>
-
-                <p>Sending time</p>
-                @Html.CheckBoxFor(m => m.Campaign.Scheduler.IsSendNow) Is Sent Now
-            </div>
-        </div>
-        <a asp-action="Index">Back to List</a>
-        <button class="btn btn-info" type="submit">Create New Campaign</button>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Sending the campaign</h4>
+
+            <p>Sending time</p>
+            @Html.CheckBoxFor(m => m.Campaign.Scheduler.IsSendNow) Is Sent Now
+            <div class="form-group">
+                @Html.TextBoxFor(m => m.Campaign.Scheduler.SendOn)
+            </div>
+        </div>
+    </div>
+    <a asp-action="Index">Back to List</a>
+    <button class="btn btn-info" type="submit">Create New Campaign</button>
+</div>
 }

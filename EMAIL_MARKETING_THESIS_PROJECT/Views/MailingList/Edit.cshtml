@@ -1,0 +1,15 @@
+﻿@model EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.MailingList
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editing mailing list: @Model.Title</h1>
+
+@using (Html.BeginForm("Edit", "MailingList", FormMethod.Post))
+{
+    <p>Enter new name: </p>
+    @Html.TextBoxFor(m => m.Title)
+    <button type="submit" class="btn btn-info">Update</button>
+}

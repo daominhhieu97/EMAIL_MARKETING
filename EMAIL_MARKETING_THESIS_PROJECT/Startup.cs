@@ -1,3 +1,4 @@
+using EMAIL_MARKETING_THESIS_PROJECT.Controllers;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
@@ -34,6 +35,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddSingleton(new DemographicFiltering());
             services.AddSingleton(new GeographicFiltering());
             services.AddScoped(typeof(EmailSender));
+            services.AddScoped(typeof(SubscriberParser));
             services.AddScoped<IKmeanCustomerAnalyzer, RFMKMeanAnalyzer>();
         }
 
