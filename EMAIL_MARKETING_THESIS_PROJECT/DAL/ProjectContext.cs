@@ -82,6 +82,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             entity.Property(e => e.Sender)
                 .HasColumnType("nvarchar(MAX)")
                 .IsRequired();
+
+            entity.Property(e => e.Name)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
         }
 
         private void MapMailingList(ModelBuilder modelBuilder)

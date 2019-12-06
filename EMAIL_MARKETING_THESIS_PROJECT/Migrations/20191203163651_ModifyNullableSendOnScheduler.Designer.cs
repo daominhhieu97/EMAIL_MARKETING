@@ -4,14 +4,16 @@ using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
 {
     [DbContext(typeof(ProjectContext))]
-    partial class ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20191203163651_ModifyNullableSendOnScheduler")]
+    partial class ModifyNullableSendOnScheduler
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,10 +50,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
 
                     b.Property<int>("CampaignId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(MAX)");
 
                     b.Property<string>("Sender")
                         .IsRequired()

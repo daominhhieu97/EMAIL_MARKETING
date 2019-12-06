@@ -1,8 +1,23 @@
-﻿
+﻿@model EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.MailingList
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Create a mailing list</h1>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Create", "MailingList", FormMethod.Post))
+            {
+                <p>Enter your mailing list name: </p>
+                @Html.TextBoxFor(m => m.Title)
+
+                <div>
+                    <button class="btn btn-info" type="submit">Create</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
