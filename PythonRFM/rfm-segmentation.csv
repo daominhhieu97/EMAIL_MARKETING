@@ -1,4 +1,4 @@
-customer,frequency,recency,monetary_value,R_Quartile,F_Quartile,M_Quartile,RFMClass
+﻿customer,frequency,recency,monetary_value,R_Quartile,F_Quartile,M_Quartile,RFMClass
 Aaliyah Carroll,1,4,31,1,4,4,144
 Aaliyah Padberg,1,21,76,2,4,2,242
 Aarav Hyatt,1,43,40,3,4,4,344
