@@ -25,4 +25,22 @@
     <Folder Include="RFMFiles\" />
     <Folder Include="Views\frontend\js\MailingList\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\16d676bf-99e1-4588-8654-e2cc653bab92.gif" />
+    <None Include="wwwroot\images\2c503f55-5da5-400a-98bd-8cca3562ff80.png" />
+    <None Include="wwwroot\images\309fddd6-3e45-4125-a490-d88dbcde5939.png" />
+    <None Include="wwwroot\images\background1-01.png" />
+    <None Include="wwwroot\images\bg_opacity_slow2.png" />
+    <None Include="wwwroot\images\card1.png" />
+    <None Include="wwwroot\images\card2.png" />
+    <None Include="wwwroot\images\card3.png" />
+    <None Include="wwwroot\images\christmas4_1.gif" />
+    <None Include="wwwroot\images\ch_gift.png" />
+    <None Include="wwwroot\images\e819af46-4fd8-40b4-8abe-411838c63aca.png" />
+    <None Include="wwwroot\images\facebook%402x.png" />
+    <None Include="wwwroot\images\instagram%402x.png" />
+    <None Include="wwwroot\images\linkedin%402x.png" />
+    <None Include="wwwroot\images\twitter%402x.png" />
+  </ItemGroup>
 </Project>

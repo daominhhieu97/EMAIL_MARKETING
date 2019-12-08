@@ -118,9 +118,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             entity.Property(e => e.Name)
                 .HasColumnType("nvarchar(256)")
                 .IsRequired();
-
-            entity.Property(e => e.Content)
-                .HasColumnType("VARBINARY(8000)");
+            entity.Property(e => e.Path)
+                .HasColumnType("nvarchar(MAX)");
         }
 
         private void MapCustomer(ModelBuilder modelBuilder)
@@ -167,5 +166,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
         }
 
         public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Campaign> Campaign { get; set; }
+
+        public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Template> Template { get; set; }
     }
 }

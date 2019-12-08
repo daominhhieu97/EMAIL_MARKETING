@@ -8,6 +8,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 
         public string Name { get; set; }
 
-        public byte[] Content { get; set; }
+        public string Path { get; set; }
     }
 }

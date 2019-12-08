@@ -38,9 +38,9 @@ def rfm(inputfile, outputfile, inputdate):
    orders = pd.read_csv(inputfile, sep=',')
    orders['order_date'] = pd.to_datetime(orders['order_date'])
    
-   rfmTable = orders.groupby('customer').agg({'Email': lambda x : x['email'], 'order_date': lambda x: (NOW - x.max()).days, # Recency
-                                              'order_id': lambda x: len(x),      # Frequency
-                                              'grand_total': lambda x: x.sum()}) # Monetary Value
+   rfmTable = orders.groupby(['customer', 'Email', 'Age', 'Phone' , 'City']).agg({'order_date': lambda x: (NOW - x.max()).days, # Recency
+                                                      'order_id': lambda x: len(x),      # Frequency
+                                                      'grand_total': lambda x: x.sum()}) # Monetary Value
 
    rfmTable['order_date'] = rfmTable['order_date'].astype(int)
    rfmTable.rename(columns={'order_date': 'recency', 

@@ -18,8 +18,28 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
     </dl>
+
+    <div class="row">
+        <div class="col-md-4">By mailing list:</div>
+        <div class="col-md-8">@Model.MailingList.Title</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Sender Email Address</div>
+        <div class="col-md-8">@Model.EmailInfo.Sender</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Sender name:</div>
+        <div class="col-md-8">@Model.EmailInfo.Name</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Send date:</div>
+        <div class="col-md-8">@Model.Scheduler.SendOn</div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">Subject line:</div>
+        <div class="col-md-8">@Model.EmailInfo.Subject</div>
+    </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

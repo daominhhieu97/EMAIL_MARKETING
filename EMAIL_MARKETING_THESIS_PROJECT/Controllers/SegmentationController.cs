@@ -68,7 +68,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return segmentedMailingList;
         }
 
-        private async Task CreateNewMailingListWithSubscriber(MailingList segmentedMailingList, List<RFMSubscriber> subscribers)
+        private async Task CreateNewMailingListWithSubscriber(MailingList segmentedMailingList, IEnumerable<RFMSubscriber> subscribers)
         {
             foreach (var subscriber in subscribers)
             {

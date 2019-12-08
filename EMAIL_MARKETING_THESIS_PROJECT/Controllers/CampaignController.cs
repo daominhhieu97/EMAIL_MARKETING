@@ -36,7 +36,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         {
             var viewModel = new CreateCampaignViewModel
             {
-                MailingLists = context.Set<MailingList>().ToList()
+                MailingLists = context.Set<MailingList>().ToList(),
+                Templates = context.Set<Template>().ToList()
             };
 
             return View(viewModel);
@@ -52,6 +53,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
                 MailingList = context.Set<MailingList>().Single(ml => ml.Id == viewModel.SelectedMailingListId),
                 Scheduler = viewModel.Campaign.Scheduler
             };
+
+            var template = context.Set<Template>().Single(t => t.Id == viewModel.SelectedTemplateId);
+
+            campaign.EmailInfo.Template = template;
 
             context.Set<Campaign>().Add(campaign);
 
@@ -82,7 +87,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var campaign = context.Set<Campaign>().Single(c => c.Id == id);
+            var campaign = context.Set<Campaign>()
+                .Include(c => c.MailingList)
+                .Include(c => c.EmailInfo)
+                .Include(c => c.Scheduler)
+                .Single(c => c.Id == id);
 
             return View(campaign);
         }

@@ -2,6 +2,11 @@
 {
     public class EmailTemplate
     {
+        public EmailTemplate()
+        {
+            this.Template = new Template();
+        }
+
         public int Id { get; set; }
 
         public string Subject { get; set; }

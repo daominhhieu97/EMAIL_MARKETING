@@ -4,6 +4,7 @@ using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,36 +28,32 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
                 .Select(ms => ms.Subscriber)
                 .ToList();
 
-            var sendOn = campaign.Scheduler.SendOn ?? campaign.Scheduler.SendOn;
+            var client = new SmtpClient();
+
+            client.Connect("smtp.gmail.com", 465, true);
+            client.Authenticate("hieudm97@gmail.com", "hieudm231197");
 
             foreach (var subscriber in subscribers)
             {
-                try
-                {
-                    var message = CreateMimeMessage(campaign, subscriber);
-                    message.Body = CreateMessageBody();
+                var message = CreateMimeMessage(campaign, subscriber);
+                message.Body = CreateMessageBody(campaign.EmailInfo.Template);
 
-                    var client = new SmtpClient();
-                    client.Connect("smtp.gmail.com", 465, true);
-                    client.Authenticate("hieudm97@gmail.com", "hieudm231197");
-                    await client.SendAsync(message);
-                    client.Disconnect(true);
-                    client.Dispose();
-                    break;
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
+                await client.SendAsync(message);
             }
+
+            client.Disconnect(true);
+            client.Dispose();
         }
 
-        private static MimeEntity CreateMessageBody()
+        private static MimeEntity CreateMessageBody(Template template)
         {
-            var bodyBuilder = new BodyBuilder
-            {
-                TextBody = "Hello World!"
-            };
+            var bodyBuilder = new BodyBuilder();
+
+            using var sourceReader = File.OpenText(@template.Path);
+
+            var htmlBody = sourceReader.ReadToEnd();
+
+            bodyBuilder.HtmlBody = htmlBody;
 
             return bodyBuilder.ToMessageBody();
         }

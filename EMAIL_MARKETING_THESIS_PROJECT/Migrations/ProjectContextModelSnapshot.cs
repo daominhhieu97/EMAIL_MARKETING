@@ -121,12 +121,12 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Content")
-                        .HasColumnType("VARBINARY(8000)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("Path")
+                        .HasColumnType("nvarchar(MAX)");
 
                     b.HasKey("Id");
 
