@@ -2,41 +2,6 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
-      "DynamicLanguageRuntime/1.2.2": {
-        "type": "package",
-        "dependencies": {
-          "System.CodeDom": "4.5.0",
-          "System.Configuration.ConfigurationManager": "4.5.0"
-        },
-        "compile": {
-          "lib/netcoreapp2.1/Microsoft.Dynamic.dll": {},
-          "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.dll": {},
-          "lib/netcoreapp2.1/Microsoft.Scripting.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/Microsoft.Dynamic.dll": {},
-          "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.dll": {},
-          "lib/netcoreapp2.1/Microsoft.Scripting.dll": {}
-        }
-      },
-      "IronPython/2.7.9": {
-        "type": "package",
-        "dependencies": {
-          "DynamicLanguageRuntime": "[1.2.2]",
-          "Microsoft.Win32.Registry": "4.5.0",
-          "System.Text.Encoding.CodePages": "4.5.0"
-        },
-        "compile": {
-          "lib/netcoreapp2.1/IronPython.Modules.dll": {},
-          "lib/netcoreapp2.1/IronPython.SQLite.dll": {},
-          "lib/netcoreapp2.1/IronPython.dll": {}
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/IronPython.Modules.dll": {},
-          "lib/netcoreapp2.1/IronPython.SQLite.dll": {},
-          "lib/netcoreapp2.1/IronPython.dll": {}
-        }
-      },
       "MailKit/2.4.1": {
         "type": "package",
         "dependencies": {
@@ -51,6 +16,18 @@
         "runtime": {
           "lib/netstandard2.0/MailKit.dll": {}
         }
+      },
+      "Microsoft.AspNetCore.Authentication.Facebook/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       },
       "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
         "type": "package",
@@ -770,7 +747,7 @@
           "System.Security.Principal.Windows": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/Microsoft.Win32.Registry.dll": {}
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Win32.Registry.dll": {}
@@ -1128,15 +1105,6 @@
           "lib/netstandard1.1/System.Buffers.dll": {}
         }
       },
-      "System.CodeDom/4.5.0": {
-        "type": "package",
-        "compile": {
-          "ref/netstandard2.0/System.CodeDom.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.CodeDom.dll": {}
-        }
-      },
       "System.Collections/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1395,7 +1363,7 @@
           "System.Security.Permissions": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
@@ -2156,7 +2124,7 @@
           "System.Security.Principal.Windows": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.AccessControl.dll": {}
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.AccessControl.dll": {}
@@ -2424,7 +2392,7 @@
           "System.Security.AccessControl": "4.5.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.Permissions.dll": {}
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Permissions.dll": {}
@@ -2448,7 +2416,7 @@
           "Microsoft.NETCore.Platforms": "2.0.0"
         },
         "compile": {
-          "ref/netstandard2.0/System.Security.Principal.Windows.dll": {}
+          "ref/netstandard2.0/_._": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Principal.Windows.dll": {}
@@ -2711,70 +2679,6 @@
     }
   },
   "libraries": {
-    "DynamicLanguageRuntime/1.2.2": {
-      "sha512": "xNsMK0WWX85K5CNIIdjiHa3Va6hIZA5/GRBoMYG7KJ+iU6pCFFJMmq/EL0QjHmzWO14PQqviIZ0JQHCArv4gjQ==",
-      "type": "package",
-      "path": "dynamiclanguageruntime/1.2.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "README.md",
-        "dynamiclanguageruntime.1.2.2.nupkg.sha512",
-        "dynamiclanguageruntime.nuspec",
-        "lib/net45/Microsoft.Dynamic.dll",
-        "lib/net45/Microsoft.Dynamic.xml",
-        "lib/net45/Microsoft.Scripting.Metadata.dll",
-        "lib/net45/Microsoft.Scripting.Metadata.xml",
-        "lib/net45/Microsoft.Scripting.dll",
-        "lib/net45/Microsoft.Scripting.xml",
-        "lib/netcoreapp2.0/Microsoft.Dynamic.dll",
-        "lib/netcoreapp2.0/Microsoft.Dynamic.xml",
-        "lib/netcoreapp2.0/Microsoft.Scripting.Metadata.dll",
-        "lib/netcoreapp2.0/Microsoft.Scripting.Metadata.xml",
-        "lib/netcoreapp2.0/Microsoft.Scripting.dll",
-        "lib/netcoreapp2.0/Microsoft.Scripting.xml",
-        "lib/netcoreapp2.1/Microsoft.Dynamic.dll",
-        "lib/netcoreapp2.1/Microsoft.Dynamic.xml",
-        "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.dll",
-        "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.xml",
-        "lib/netcoreapp2.1/Microsoft.Scripting.dll",
-        "lib/netcoreapp2.1/Microsoft.Scripting.xml"
-      ]
-    },
-    "IronPython/2.7.9": {
-      "sha512": "CXQT1XUPKapVZ1r4coR+lFlC1FEsI4sDJg/9iSug/fUnWuYZ8APAPFutPG09T2uwcsWk40s4ckqO27/dbsA6lw==",
-      "type": "package",
-      "path": "ironpython/2.7.9",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "README.md",
-        "ironpython.2.7.9.nupkg.sha512",
-        "ironpython.nuspec",
-        "lib/net45/IronPython.Modules.dll",
-        "lib/net45/IronPython.Modules.xml",
-        "lib/net45/IronPython.SQLite.dll",
-        "lib/net45/IronPython.SQLite.xml",
-        "lib/net45/IronPython.Wpf.dll",
-        "lib/net45/IronPython.Wpf.xml",
-        "lib/net45/IronPython.dll",
-        "lib/net45/IronPython.xml",
-        "lib/netcoreapp2.0/IronPython.Modules.dll",
-        "lib/netcoreapp2.0/IronPython.Modules.xml",
-        "lib/netcoreapp2.0/IronPython.SQLite.dll",
-        "lib/netcoreapp2.0/IronPython.SQLite.xml",
-        "lib/netcoreapp2.0/IronPython.dll",
-        "lib/netcoreapp2.0/IronPython.xml",
-        "lib/netcoreapp2.1/IronPython.Modules.dll",
-        "lib/netcoreapp2.1/IronPython.Modules.xml",
-        "lib/netcoreapp2.1/IronPython.SQLite.dll",
-        "lib/netcoreapp2.1/IronPython.SQLite.xml",
-        "lib/netcoreapp2.1/IronPython.dll",
-        "lib/netcoreapp2.1/IronPython.xml"
-      ]
-    },
     "MailKit/2.4.1": {
       "sha512": "txopK34kCTVfM8cGewvv2KZBsSuE8iXJ5xbdRa5dOIxw9SLjGzpyHiQvcTW8i3XQm70cBRhlBCpPy22qU35N+A==",
       "type": "package",
@@ -2803,6 +2707,19 @@
         "lib/xamarinios/MailKit.xml",
         "mailkit.2.4.1.nupkg.sha512",
         "mailkit.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/3.0.0": {
+      "sha512": "1MghMzwXlVZHNM/SoaZYSo3Uzur2ludF1wFCZkgegFwihCu1FqiBfJK4c5KbjOs5dM7KLNtr98qVscXv5F0qbw==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.facebook/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.Facebook.xml",
+        "microsoft.aspnetcore.authentication.facebook.3.0.0.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.facebook.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
@@ -4459,27 +4376,6 @@
         "lib/netstandard1.1/System.Buffers.dll",
         "system.buffers.4.3.0.nupkg.sha512",
         "system.buffers.nuspec"
-      ]
-    },
-    "System.CodeDom/4.5.0": {
-      "sha512": "gqpR1EeXOuzNQWL7rOzmtdIz3CaXVjSQCiaGOs2ivjPwynKSJYm39X81fdlp7WuojZs/Z5t1k5ni7HtKQurhjw==",
-      "type": "package",
-      "path": "system.codedom/4.5.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.TXT",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.CodeDom.dll",
-        "lib/netstandard2.0/System.CodeDom.dll",
-        "ref/net461/System.CodeDom.dll",
-        "ref/net461/System.CodeDom.xml",
-        "ref/netstandard2.0/System.CodeDom.dll",
-        "ref/netstandard2.0/System.CodeDom.xml",
-        "system.codedom.4.5.0.nupkg.sha512",
-        "system.codedom.nuspec",
-        "useSharedDesignerContext.txt",
-        "version.txt"
       ]
     },
     "System.Collections/4.3.0": {
@@ -8744,8 +8640,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
-      "IronPython >= 2.7.9",
       "MailKit >= 2.4.1",
+      "Microsoft.AspNetCore.Authentication.Facebook >= 3.0.0",
       "Microsoft.EntityFrameworkCore >= 3.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 3.0.0",
@@ -8790,13 +8686,13 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
-          "IronPython": {
-            "target": "Package",
-            "version": "[2.7.9, )"
-          },
           "MailKit": {
             "target": "Package",
             "version": "[2.4.1, )"
+          },
+          "Microsoft.AspNetCore.Authentication.Facebook": {
+            "target": "Package",
+            "version": "[3.0.0, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",

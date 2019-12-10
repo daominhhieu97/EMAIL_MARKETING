@@ -9,28 +9,31 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3 text-center">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1 mx-auto">
+                    <ul class="navbar-nav flex-grow-1 justify-content-center">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i></a>
+                            <a class="nav-link text-white" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Campaign" asp-action="Create">NEW CAMPAIGN</a>
+                            <a class="nav-link text-white" asp-controller="Campaign" asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;New Campaign</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="MailingList" asp-action="GetMailingLists">MAILING LISTS</a>
+                            <a class="nav-link text-white" asp-controller="MailingList" asp-action="GetMailingLists"><i class="fa fa-th-list" aria-hidden="true"></i>&nbsp;Mailing Lists</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Campaign" asp-action="Index">MY CAMPAIGNS</a>
+                            <a class="nav-link text-white" asp-controller="Campaign" asp-action="Index"><i class="fa fa-magic" aria-hidden="true"></i>&nbsp;My Campaigns</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-controller="Template" asp-action="GetTemplates">EMAIL TEMPLATES</a>
+                            <a class="nav-link text-white" asp-controller="Template" asp-action="GetTemplates"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Email Templates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-controller="OAuth" asp-action="SignIn"><i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;Sign in</a>
                         </li>
                     </ul>
                 </div>

@@ -13,6 +13,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
 
         public string SubscriberRateClass { get; set; }
 
-        public Criteria[] Criterias { get; set; }
+        public Criteria[] Criteria { get; set; }
     }
 }

@@ -2,6 +2,8 @@ using EMAIL_MARKETING_THESIS_PROJECT.Controllers;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,29 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             RegisterDependencies(services);
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
+            RegisterOAuthWithFacebook(services);
+            RegisterEasyQuery(services);
+        }
+
+        private void RegisterEasyQuery(IServiceCollection services)
+        {
+        }
+
+        private void RegisterOAuthWithFacebook(IServiceCollection services)
+        {
+            services.AddAuthentication(options =>
+                    {
+                        options.DefaultChallengeScheme = FacebookDefaults.AuthenticationScheme;
+                        options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                        options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    })
+                .AddFacebook(options =>
+                {
+                    options.AppId = "2451937834934499";
+                    options.AppSecret = "7460c2ddf9374184ea33e2d32568145e";
+                })
+                .AddCookie()
+                ;
         }
 
         private void RegisterDependencies(IServiceCollection services)
@@ -55,7 +80,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
      {

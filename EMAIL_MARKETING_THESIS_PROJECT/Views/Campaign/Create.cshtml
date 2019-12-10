@@ -5,45 +5,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>You are creating a new campaign</h2>
-<hr />
 @using (Html.BeginForm("Create", "Campaign", FormMethod.Post))
 {
     <div class="container">
-        <h4>New Email Campaign</h4>
-        <div class="row">
-            <div class="col-md-12">
-                <p>Title:</p>
-                @Html.TextBoxFor(m => m.Campaign.Title)
+        <h4>Create a Campaign</h4>
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well well-lg form-group">
+                        <label id="step1">Title:</label>
+                        @Html.TextBoxFor(m => m.Campaign.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Campaign.Title)
+                    </div>
 
-                <p>Mailing lists:</p>
-                @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems())
+                    <div class="well well-lg form-group">
+                        <label id="step2">Mailing lists:</label>
+                        @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems(), new { @class = "form-control" })
+                    </div>
 
-                <p>Te lists:</p>
-                @Html.DropDownListFor(m => m.SelectedTemplateId, Model.GetTemplateItems())
+                    <div class="well well-lg form-group">
+                        <div class="form-group" id="step3">
+                            <label>Template lists:</label>
+                            @Html.DropDownListFor(m => m.SelectedTemplateId, Model.GetTemplateItems(), new { @class = "form-control" })
+                        </div>
+                    </div>
 
-                <h4>Sender email address</h4>
-                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Sender)
+                    <div class="well well-lg">
+                        <div class="form-group">
+                            <h4 id="step4">Sender email address</h4>
+                            @Html.TextBoxFor(m => m.Campaign.EmailInfo.Sender, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Campaign.EmailInfo.Sender)
+                        </div>
 
-                <p>Name:</p>
-                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Name)
+                        <div class="form-group">
+                            <label>Name:</label>
+                            @Html.TextBoxFor(m => m.Campaign.EmailInfo.Name, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Campaign.EmailInfo.Name)
+                        </div>
 
-                <p>Subject line:</p>
-                @Html.TextBoxFor(m => m.Campaign.EmailInfo.Subject)
+                        <div class="form-group">
+                            <label>Subject line:</label>
+                            @Html.TextBoxFor(m => m.Campaign.EmailInfo.Subject, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Campaign.EmailInfo.Subject)
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Sending the campaign</h4>
+            <div class="well well-lg form-group">
+                <h4 id="step5">Sending the campaign</h4>
 
-                <p>Sending time</p>
-                @Html.CheckBoxFor(m => m.Campaign.Scheduler.IsSendNow) Is Sent Now
-                <div class="form-group">
-                    @Html.TextBoxFor(m => m.Campaign.Scheduler.SendOn)
+                <div class="form-row">
+                    <div class="col-md-3">
+                        @Html.CheckBoxFor(m => m.Campaign.Scheduler.IsSendNow) Is Sent Now
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.Campaign.Scheduler.SendOn, new { @class = "form-control" })
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar" aria-hidden="true" data-date-format="dd-mm-yyyy"></i>
+                            </span> &nbsp;
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <a asp-action="Index">Back to List</a>
-        <button class="btn btn-info" type="submit">Create New Campaign</button>
+        <div class="form-group">
+            <a class="btn btn-info btn-sm" asp-action="Index"><i class="fa fa-arrow-left"></i>&nbsp;Back to List</a>
+            &nbsp;
+            <button class="btn btn-info btn-sm " type="submit"><i class="fa fa-plus"></i>&nbsp;Create</button>
+        </div>
     </div>
 }

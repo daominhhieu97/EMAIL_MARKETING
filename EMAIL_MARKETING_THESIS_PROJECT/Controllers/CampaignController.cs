@@ -11,18 +11,18 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
     public class CampaignController : Controller
     {
-        private readonly ProjectContext context;
-        private readonly EmailSender emailSender;
+        private readonly ProjectContext _context;
+        private readonly EmailSender _emailSender;
 
         public CampaignController(ProjectContext context, EmailSender emailSender)
         {
-            this.emailSender = emailSender;
-            this.context = context;
+            this._emailSender = emailSender;
+            this._context = context;
         }
 
         public IActionResult Index()
         {
-            var viewModel = context.Set<Campaign>()
+            var viewModel = _context.Set<Campaign>()
                 .Include(c => c.EmailInfo)
                 .Include(c => c.MailingList)
                 .Include(c => c.Scheduler)
@@ -36,8 +36,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         {
             var viewModel = new CreateCampaignViewModel
             {
-                MailingLists = context.Set<MailingList>().ToList(),
-                Templates = context.Set<Template>().ToList()
+                MailingLists = _context.Set<MailingList>().ToList(),
+                Templates = _context.Set<Template>().ToList()
             };
 
             return View(viewModel);
@@ -50,34 +50,26 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 Title = viewModel.Campaign.Title,
                 EmailInfo = viewModel.Campaign.EmailInfo,
-                MailingList = context.Set<MailingList>().Single(ml => ml.Id == viewModel.SelectedMailingListId),
+                MailingList = _context.Set<MailingList>().Single(ml => ml.Id == viewModel.SelectedMailingListId),
                 Scheduler = viewModel.Campaign.Scheduler
             };
 
-            var template = context.Set<Template>().Single(t => t.Id == viewModel.SelectedTemplateId);
+            var template = _context.Set<Template>().Single(t => t.Id == viewModel.SelectedTemplateId);
 
             campaign.EmailInfo.Template = template;
 
-            context.Set<Campaign>().Add(campaign);
+            _context.Set<Campaign>().Add(campaign);
 
-            context.SaveChanges();
+            _context.SaveChanges();
 
-            await emailSender.SendEmail(campaign);
+            await _emailSender.SendEmail(campaign);
 
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var campaign = context.Set<Campaign>().Single(c => c.Id == id);
-
-            return View(campaign);
-        }
-
         public IActionResult Edit(Campaign viewModel)
         {
-            var campaign = context.Set<Campaign>().Single(c => c.Id == viewModel.Id);
+            var campaign = _context.Set<Campaign>().Single(c => c.Id == viewModel.Id);
 
             campaign.Update(viewModel);
 
@@ -87,7 +79,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var campaign = context.Set<Campaign>()
+            var campaign = _context.Set<Campaign>()
                 .Include(c => c.MailingList)
                 .Include(c => c.EmailInfo)
                 .Include(c => c.Scheduler)
@@ -98,24 +90,24 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult Delete(int id)
         {
-            var campaign = context.Set<Campaign>().Single(c => c.Id == id);
+            var campaign = _context.Set<Campaign>().Single(c => c.Id == id);
 
-            context.Set<Campaign>().Remove(campaign);
+            _context.Set<Campaign>().Remove(campaign);
 
-            context.SaveChanges();
+            _context.SaveChanges();
 
             return RedirectToAction("Index", "Campaign");
         }
 
         public async Task<IActionResult> SendEmailAsync(int id)
         {
-            var campaign = context.Set<Campaign>()
+            var campaign = _context.Set<Campaign>()
                 .Include(c => c.EmailInfo)
                 .Include(c => c.MailingList)
                 .Include(c => c.Scheduler)
                 .Single(c => c.Id == id);
 
-            await emailSender.SendEmail(campaign);
+            await _emailSender.SendEmail(campaign);
 
             return RedirectToAction("Details", new { id = campaign.Id });
         }

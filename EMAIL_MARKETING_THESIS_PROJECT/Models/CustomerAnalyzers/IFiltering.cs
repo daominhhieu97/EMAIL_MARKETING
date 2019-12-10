@@ -6,6 +6,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 {
     public interface IFiltering
     {
-        public List<RFMSubscriber> Filter(MailingList list, Criteria[] criteria);
+        List<RFMSubscriber> Filter(MailingList list, Criteria[] criteria);
     }
 }

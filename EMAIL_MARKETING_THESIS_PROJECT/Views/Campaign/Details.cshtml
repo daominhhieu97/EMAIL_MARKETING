@@ -1,45 +1,48 @@
-﻿@model EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Campaign
+﻿@using System.IO
+@model EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Campaign
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>Campaign</h4>
+<div class="well well-lg">
+    <h4>@Model.Title</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-    </dl>
-
+    <br />
     <div class="row">
-        <div class="col-md-4">By mailing list:</div>
-        <div class="col-md-8">@Model.MailingList.Title</div>
+        <div class="col-md-4"><label>By Mailing List:</label></div>
+        <a asp-controller="MailingList" asp-action="Details" asp-route-id="@Model.MailingList.Id">@Model.MailingList.Title</a>
     </div>
+    <hr />
     <div class="row">
-        <div class="col-md-4">Sender Email Address</div>
+        <div class="col-md-4"><label>Sender Email Address:</label></div>
         <div class="col-md-8">@Model.EmailInfo.Sender</div>
     </div>
+    <hr />
     <div class="row">
-        <div class="col-md-4">Sender name:</div>
+        <div class="col-md-4"><label>Sender Name:</label></div>
         <div class="col-md-8">@Model.EmailInfo.Name</div>
     </div>
+    <hr />
     <div class="row">
-        <div class="col-md-4">Send date:</div>
+        <div class="col-md-4"><label>Send Date:</label></div>
         <div class="col-md-8">@Model.Scheduler.SendOn</div>
     </div>
+    <hr />
     <div class="row">
-        <div class="col-md-4">Subject line:</div>
+        <div class="col-md-4"><label>Subject Line:</label></div>
         <div class="col-md-8">@Model.EmailInfo.Subject</div>
     </div>
 </div>
+@*<div class="well well-lg">
+        <div class="">
+            <h4>Email Body</h4>
+        </div>
+        <div class="">
+            @Html.Raw(File.ReadAllText(Server.MapPath(@Model.EmailInfo.Template.Path)));
+        </div>
+    </div>*@
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-info" asp-action="Index"><i class="fa fa-arrow-left"></i>&nbsp;Back to List</a>
 </div>

@@ -46,22 +46,14 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         private async Task<MailingList> SegmentSubscriber(AddSegmentationViewModel viewModel, MailingList mailingList)
         {
             var segmentedMailingList = new MailingList(viewModel.NewName);
-            var subscribers = new List<RFMSubscriber>();
 
-            switch (viewModel.CategoryType)
+            var subscribers = viewModel.CategoryType switch
             {
-                case CategoryTypes.DEMOGRAPHIC:
-                    subscribers = demographicFiltering.Filter(mailingList, viewModel.Criterias);
-                    break;
-
-                case CategoryTypes.GEOGRAPHIC:
-                    subscribers = geographicFiltering.Filter(mailingList, viewModel.Criterias);
-                    break;
-
-                case CategoryTypes.KMEANS:
-                    subscribers = kmeanCustomerAnalyzer.Analyze(mailingList, viewModel.SubscriberRateClass);
-                    break;
-            }
+                CategoryTypes.DEMOGRAPHIC => demographicFiltering.Filter(mailingList, viewModel.Criteria),
+                CategoryTypes.GEOGRAPHIC => geographicFiltering.Filter(mailingList, viewModel.Criteria),
+                CategoryTypes.KMEANS => kmeanCustomerAnalyzer.Analyze(mailingList, viewModel.SubscriberRateClass),
+                _ => new List<RFMSubscriber>()
+            };
 
             await CreateNewMailingListWithSubscriber(segmentedMailingList, subscribers);
 

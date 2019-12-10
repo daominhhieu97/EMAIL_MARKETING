@@ -38,13 +38,13 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
-            "IronPython": {
-              "target": "Package",
-              "version": "[2.7.9, )"
-            },
             "MailKit": {
               "target": "Package",
               "version": "[2.4.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Facebook": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",

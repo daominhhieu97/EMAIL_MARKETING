@@ -5,7 +5,6 @@ using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists;
-using IronPython.Runtime.Operations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -156,6 +155,16 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Details", new { id = mailingList.Id });
+        }
+
+        public IActionResult EditSubscriber()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IActionResult DeleteSubscriber()
+        {
+            throw new NotImplementedException();
         }
     }
 }

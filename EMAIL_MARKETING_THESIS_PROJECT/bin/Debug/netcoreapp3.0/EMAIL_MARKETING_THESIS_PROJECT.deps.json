@@ -24,8 +24,8 @@
     ".NETCoreApp,Version=v3.0": {
       "EMAIL_MARKETING_THESIS_PROJECT/1.0.0": {
         "dependencies": {
-          "IronPython": "2.7.9",
           "MailKit": "2.4.1",
+          "Microsoft.AspNetCore.Authentication.Facebook": "3.0.0",
           "Microsoft.EntityFrameworkCore": "3.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "3.0.0",
@@ -310,57 +310,6 @@
           "EMAIL_MARKETING_THESIS_PROJECT.dll": {}
         }
       },
-      "DynamicLanguageRuntime/1.2.2": {
-        "dependencies": {
-          "System.CodeDom": "4.5.0",
-          "System.Configuration.ConfigurationManager": "4.5.0"
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/Microsoft.Dynamic.dll": {
-            "assemblyVersion": "1.2.2.0",
-            "fileVersion": "1.2.2.1000"
-          },
-          "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.dll": {
-            "assemblyVersion": "1.2.2.0",
-            "fileVersion": "1.2.2.1000"
-          },
-          "lib/netcoreapp2.1/Microsoft.Scripting.dll": {
-            "assemblyVersion": "1.2.2.0",
-            "fileVersion": "1.2.2.1000"
-          }
-        },
-        "compile": {
-          "lib/netcoreapp2.1/Microsoft.Dynamic.dll": {},
-          "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.dll": {},
-          "lib/netcoreapp2.1/Microsoft.Scripting.dll": {}
-        }
-      },
-      "IronPython/2.7.9": {
-        "dependencies": {
-          "DynamicLanguageRuntime": "1.2.2",
-          "Microsoft.Win32.Registry": "4.5.0",
-          "System.Text.Encoding.CodePages": "4.5.1"
-        },
-        "runtime": {
-          "lib/netcoreapp2.1/IronPython.Modules.dll": {
-            "assemblyVersion": "2.7.9.0",
-            "fileVersion": "2.7.9.1000"
-          },
-          "lib/netcoreapp2.1/IronPython.SQLite.dll": {
-            "assemblyVersion": "2.7.9.0",
-            "fileVersion": "2.7.9.1000"
-          },
-          "lib/netcoreapp2.1/IronPython.dll": {
-            "assemblyVersion": "2.7.9.0",
-            "fileVersion": "2.7.9.1000"
-          }
-        },
-        "compile": {
-          "lib/netcoreapp2.1/IronPython.Modules.dll": {},
-          "lib/netcoreapp2.1/IronPython.SQLite.dll": {},
-          "lib/netcoreapp2.1/IronPython.dll": {}
-        }
-      },
       "MailKit/2.4.1": {
         "dependencies": {
           "MimeKit": "2.4.1",
@@ -376,6 +325,17 @@
         },
         "compile": {
           "lib/netstandard2.0/MailKit.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Facebook/3.0.0": {
+        "runtime": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.19.46502"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {}
         }
       },
       "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
@@ -1282,17 +1242,6 @@
           "System.Threading": "4.3.0"
         }
       },
-      "System.CodeDom/4.5.0": {
-        "runtime": {
-          "lib/netstandard2.0/System.CodeDom.dll": {
-            "assemblyVersion": "4.0.1.0",
-            "fileVersion": "4.6.26515.6"
-          }
-        },
-        "compile": {
-          "ref/netstandard2.0/System.CodeDom.dll": {}
-        }
-      },
       "System.Collections/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.1.2",
@@ -1509,9 +1458,6 @@
             "assemblyVersion": "4.0.1.0",
             "fileVersion": "4.6.26515.6"
           }
-        },
-        "compile": {
-          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
         }
       },
       "System.Console/4.3.0": {
@@ -3914,26 +3860,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DynamicLanguageRuntime/1.2.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xNsMK0WWX85K5CNIIdjiHa3Va6hIZA5/GRBoMYG7KJ+iU6pCFFJMmq/EL0QjHmzWO14PQqviIZ0JQHCArv4gjQ==",
-      "path": "dynamiclanguageruntime/1.2.2",
-      "hashPath": "dynamiclanguageruntime.1.2.2.nupkg.sha512"
-    },
-    "IronPython/2.7.9": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CXQT1XUPKapVZ1r4coR+lFlC1FEsI4sDJg/9iSug/fUnWuYZ8APAPFutPG09T2uwcsWk40s4ckqO27/dbsA6lw==",
-      "path": "ironpython/2.7.9",
-      "hashPath": "ironpython.2.7.9.nupkg.sha512"
-    },
     "MailKit/2.4.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-txopK34kCTVfM8cGewvv2KZBsSuE8iXJ5xbdRa5dOIxw9SLjGzpyHiQvcTW8i3XQm70cBRhlBCpPy22qU35N+A==",
       "path": "mailkit/2.4.1",
       "hashPath": "mailkit.2.4.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MghMzwXlVZHNM/SoaZYSo3Uzur2ludF1wFCZkgegFwihCu1FqiBfJK4c5KbjOs5dM7KLNtr98qVscXv5F0qbw==",
+      "path": "microsoft.aspnetcore.authentication.facebook/3.0.0",
+      "hashPath": "microsoft.aspnetcore.authentication.facebook.3.0.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Html.Abstractions/2.2.0": {
       "type": "package",
@@ -4438,13 +4377,6 @@
       "sha512": "sha512-ratu44uTIHgeBeI0dE8DWvmXVBSo4u7ozRZZHOMmK/JPpYyo0dAfgSiHlpiObMQ5lEtEyIXA40sKRYg5J6A8uQ==",
       "path": "system.buffers/4.3.0",
       "hashPath": "system.buffers.4.3.0.nupkg.sha512"
-    },
-    "System.CodeDom/4.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-gqpR1EeXOuzNQWL7rOzmtdIz3CaXVjSQCiaGOs2ivjPwynKSJYm39X81fdlp7WuojZs/Z5t1k5ni7HtKQurhjw==",
-      "path": "system.codedom/4.5.0",
-      "hashPath": "system.codedom.4.5.0.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",

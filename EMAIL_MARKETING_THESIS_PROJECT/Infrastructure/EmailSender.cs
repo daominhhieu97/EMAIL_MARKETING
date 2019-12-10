@@ -71,7 +71,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
             message.Subject = campaign.EmailInfo.Subject;
 
             if (campaign.Scheduler.SendOn != null)
-                message.Date = (DateTimeOffset)campaign.Scheduler.SendOn;
+                message.ResentDate = (DateTimeOffset)campaign.Scheduler.SendOn;
 
             return message;
         }

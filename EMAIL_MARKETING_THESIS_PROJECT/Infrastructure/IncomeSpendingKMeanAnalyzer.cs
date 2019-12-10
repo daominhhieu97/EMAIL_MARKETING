@@ -1,9 +1,10 @@
-﻿using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
-using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 
-namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
+namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
 {
     public class IncomeSpendingKMeanAnalyzer : IKmeanCustomerAnalyzer
     {

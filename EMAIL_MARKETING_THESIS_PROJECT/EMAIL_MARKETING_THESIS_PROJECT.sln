@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMAIL_MARKETING_THESIS_PROJECT", "EMAIL_MARKETING_THESIS_PROJECT.csproj", "{78E44284-FAF5-4621-BAD4-032E876F1EC0}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "RFM", "..\PythonApplication1\RFM.pyproj", "{AD2C3BE2-0703-4C5B-8DFB-B6766CB22CA7}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Income_Spending", "..\Income_Spending\Income_Spending.pyproj", "{6C59762A-CF25-49C6-8B6E-ED7B2940795B}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonApplication_RFM", "..\PythonApplication_RFM\PythonApplication_RFM.pyproj", "{C1DA0247-7F3C-46EB-A81C-803D4C52C88A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{78E44284-FAF5-4621-BAD4-032E876F1EC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78E44284-FAF5-4621-BAD4-032E876F1EC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78E44284-FAF5-4621-BAD4-032E876F1EC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD2C3BE2-0703-4C5B-8DFB-B6766CB22CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD2C3BE2-0703-4C5B-8DFB-B6766CB22CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C59762A-CF25-49C6-8B6E-ED7B2940795B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C59762A-CF25-49C6-8B6E-ED7B2940795B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1DA0247-7F3C-46EB-A81C-803D4C52C88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1DA0247-7F3C-46EB-A81C-803D4C52C88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

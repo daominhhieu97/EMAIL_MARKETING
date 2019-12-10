@@ -1,18 +1,17 @@
-﻿using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
-using Sub = EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
-using System.Collections.Generic;
-
+﻿using System.Collections.Generic;
+using System.IO;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 
-using System.IO;
-
-namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
+namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
 {
     public class RFMKMeanAnalyzer : IKmeanCustomerAnalyzer
     {
         public List<RFMSubscriber> Analyze(MailingList mailingList, string subscriberRateClass)
         {
-            var path = @"C:\Users\DAO MINH HIEU\source\repos\THESIS_EMAIL_MARKETING_WEB_APPLICATION\EMAIL_MARKETING\EMAIL_MARKETING_THESIS_PROJECT\RFMFiles\rfm-table.csv";
+            const string path = @"C:\Users\DAO MINH HIEU\source\repos\THESIS_EMAIL_MARKETING_WEB_APPLICATION\EMAIL_MARKETING\EMAIL_MARKETING_THESIS_PROJECT\RFMFiles\rfm-table.csv";
+
             var subscribers = new List<RFMSubscriber>();
 
             using (var reader = new StreamReader(path))
