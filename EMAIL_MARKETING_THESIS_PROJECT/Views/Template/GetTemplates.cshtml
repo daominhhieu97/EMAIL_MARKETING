@@ -5,19 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>GetTemplates</h1>
+<h4>Templates</h4>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+<div>
+    <a class="btn btn-info" asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create Template</a>
+</div>
+
+<br />
+
+<table class="table table-hover">
+    <thead class="table-primary">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-
-            <th></th>
+            <th>
+                Preview Template
+            </th>
+            <th>
+                Action
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -27,9 +34,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
+                <td></td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-info" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
         }

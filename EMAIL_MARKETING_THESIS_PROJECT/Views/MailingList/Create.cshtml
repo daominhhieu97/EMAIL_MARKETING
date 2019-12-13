@@ -4,19 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create a mailing list</h1>
-
+<h4>Create Mailing List</h4>
+<hr />
+<br />
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row form-group">
+        <div class="col-md-6">
             @using (Html.BeginForm("Create", "MailingList", FormMethod.Post))
             {
-                <p>Enter your mailing list name: </p>
-                @Html.TextBoxFor(m => m.Title)
+                @Html.LabelFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+
+                <br />
 
                 <div>
-                    <button class="btn btn-info" type="submit">Create</button>
+                    <button class="btn btn-info" type="submit" class="form-control"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Create</button>
                 </div>
+
             }
         </div>
     </div>

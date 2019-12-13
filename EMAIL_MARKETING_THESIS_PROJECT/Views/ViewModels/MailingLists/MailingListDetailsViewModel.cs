@@ -1,6 +1,7 @@
 ﻿using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
 {
@@ -26,5 +27,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
         public string Subscribers { get; set; }
 
         public int MailingListId { get; set; }
+
+        public IFormFile File { get; set; }
     }
 }

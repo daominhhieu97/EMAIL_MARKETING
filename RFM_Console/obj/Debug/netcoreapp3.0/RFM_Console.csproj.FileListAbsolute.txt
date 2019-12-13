@@ -1,3 +1,0 @@
-C:\Users\HoangViet\Documents\GitHub\EMAIL_MARKETING\RFM_Console\obj\Debug\netcoreapp3.0\RFM_Console.csprojAssemblyReference.cache
-C:\Users\HoangViet\Documents\GitHub\EMAIL_MARKETING\RFM_Console\obj\Debug\netcoreapp3.0\RFM_Console.AssemblyInfoInputs.cache
-C:\Users\HoangViet\Documents\GitHub\EMAIL_MARKETING\RFM_Console\obj\Debug\netcoreapp3.0\RFM_Console.AssemblyInfo.cs

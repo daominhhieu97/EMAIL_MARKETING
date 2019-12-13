@@ -80,7 +80,7 @@
     </div>
 }
 
-@using (Html.BeginForm("AddContact", "MailingList", FormMethod.Post))
+@using (Html.BeginForm("AddContacts", "MailingList", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(m => m.AddContactsViewModel.MailingListId)
     <div id="addContactModal" class="modal fade" role="dialog">
@@ -92,9 +92,15 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Enter your contacts:</p>
+                    @Html.LabelFor(m => m.AddContactsViewModel.Subscribers)
+                    <div class="form-group">
+                        @Html.TextAreaFor(m => m.AddContactsViewModel.Subscribers, new { @class = "form-control" })
+                    </div>
 
-                    @Html.TextAreaFor(m => m.AddContactsViewModel.Subscribers, new { width = "100%" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.AddContactsViewModel.File)
+                        <input asp-for="AddContactsViewModel.File" class="form-control-file" type="file" />
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
