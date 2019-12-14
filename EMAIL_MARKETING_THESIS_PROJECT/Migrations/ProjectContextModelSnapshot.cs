@@ -213,17 +213,17 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                 {
                     b.HasBaseType("EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers.Subscriber");
 
-                    b.Property<string>("FClass")
-                        .HasColumnType("nvarchar(MAX)");
+                    b.Property<float?>("Frequency")
+                        .HasColumnType("real");
 
-                    b.Property<string>("MClass")
-                        .HasColumnType("nvarchar(MAX)");
-
-                    b.Property<string>("RClass")
-                        .HasColumnType("nvarchar(MAX)");
+                    b.Property<float?>("Monetary")
+                        .HasColumnType("real");
 
                     b.Property<string>("RFMClass")
                         .HasColumnType("nvarchar(MAX)");
+
+                    b.Property<float?>("Recency")
+                        .HasColumnType("real");
 
                     b.HasDiscriminator().HasValue("RFMSubscriber");
                 });
@@ -265,7 +265,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers.Subscriber", "Subscriber")
+                    b.HasOne("EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers.RFMSubscriber", "Subscriber")
                         .WithMany("MailingListsLink")
                         .HasForeignKey("SubscriberId")
                         .OnDelete(DeleteBehavior.Cascade)

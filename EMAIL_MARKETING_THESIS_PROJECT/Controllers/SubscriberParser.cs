@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
@@ -7,25 +8,19 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
     {
         public List<RFMSubscriber> Parse(string subscribers)
         {
-            var rfmSubscribers = new List<RFMSubscriber>();
-
             var subscribersInfo = subscribers.Split("\r");
 
-            foreach (var subscriberInfo in subscribersInfo)
-            {
-                var info = subscriberInfo.Split(",");
-
-                var subscriber = new RFMSubscriber()
+            return subscribersInfo.Select(subscriberInfo => subscriberInfo.Split(","))
+                .Select(info => new RFMSubscriber()
                 {
-                    Name = info[0],
-                    Email = info[1],
-                    Phone = info[2]
-                };
-
-                rfmSubscribers.Add(subscriber);
-            }
-
-            return rfmSubscribers;
+                    Name = info[0].Trim(),
+                    Email = info[1].Trim(),
+                    Phone = info[2].Trim(),
+                    Frequency = float.Parse(info[3].Trim()),
+                    Recency = float.Parse(info[4].Trim()),
+                    Monetary = float.Parse(info[5].Trim())
+                })
+                .ToList();
         }
     }
 }

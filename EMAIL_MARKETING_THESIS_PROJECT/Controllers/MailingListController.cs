@@ -71,9 +71,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return View(viewModel);
         }
 
-        private List<Subscriber> GetSubscribers(MailingList mailingList)
+        private List<RFMSubscriber> GetSubscribers(MailingList mailingList)
         {
-            List<Subscriber> subscribers = context.Set<MailingListSubscriber>()
+            List<RFMSubscriber> subscribers = context.Set<MailingListSubscriber>()
                 .Where(ms => ms.MailingListId == mailingList.Id)
                 .Select(ms => ms.Subscriber)
                 .ToList();
@@ -172,12 +172,34 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         {
             var subscriberCsvString = await ReadFromCsvFile(file.OpenReadStream());
 
-            return subscriberCsvString
-                .Split("\n")
-                .Select(sub => sub
-                    .Split(","))
-                    .Select(values => new RFMSubscriber { Name = values[0], Email = values[1], Phone = values[2] })
-                .ToList();
+            var a = subscriberCsvString
+                .Split(new[] { "\r\n", "\r", "\n" },
+                    StringSplitOptions.None)
+                .Select(sub => sub).ToList();
+
+            var list = new List<RFMSubscriber>();
+
+            foreach (var subString in a)
+            {
+                if (string.IsNullOrEmpty(subString))
+                    break;
+
+                var info = subString.Split(",");
+
+                var sub = new RFMSubscriber
+                {
+                    Name = info[0].Trim(),
+                    Email = info[1].Trim(),
+                    Phone = info[2].Trim(),
+                    Frequency = float.Parse(info[3].Trim()),
+                    Recency = float.Parse(info[4].Trim()),
+                    Monetary = float.Parse(info[5].Trim())
+                };
+
+                list.Add(sub);
+            }
+
+            return list;
         }
 
         private async Task<string> ReadFromCsvFile(Stream openReadStream)
@@ -196,9 +218,16 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult DeleteSubscriber()
+        public IActionResult DeleteSubscriber(int id, int mailinglistId)
         {
-            throw new NotImplementedException();
+            var a = context.Set<MailingListSubscriber>()
+                .Single(mls => mls.SubscriberId == id && mls.MailingListId == mailinglistId);
+
+            context.Set<MailingListSubscriber>().Remove(a);
+
+            context.SaveChanges();
+
+            return RedirectToAction("Details", "MailingList", new { id = mailinglistId });
         }
     }
 }

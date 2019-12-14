@@ -1,47 +1,101 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
+using Microsoft.ML;
+using Microsoft.ML.Data;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
 {
     public class RFMKMeanAnalyzer : IKmeanCustomerAnalyzer
     {
-        public List<RFMSubscriber> Analyze(MailingList mailingList, string subscriberRateClass)
+        private MLContext mlContext;
+
+        public RFMKMeanAnalyzer(MLContext mlContext)
         {
-            const string path = @"C:\Users\DAO MINH HIEU\source\repos\THESIS_EMAIL_MARKETING_WEB_APPLICATION\EMAIL_MARKETING\EMAIL_MARKETING_THESIS_PROJECT\RFMFiles\rfm-table.csv";
+            this.mlContext = mlContext;
+        }
 
-            var subscribers = new List<RFMSubscriber>();
+        public List<RFMSubscriber> Analyze(List<RFMSubscriber> subscribers, string subscriberRateClass)
+        {
+            var loadedModel = LoadModel();
 
-            using (var reader = new StreamReader(path))
+            var rfmSubscribers = new List<RFMSubscriber>();
+
+            foreach (var subscriber in subscribers)
             {
-                while (!reader.EndOfStream)
+                var input = CreateInputModel(subscriber);
+
+                var outputLabel = Predict(loadedModel, input);
+
+                subscriber.RFMClass = outputLabel;
+
+                if (OutputIsGood(subscriber, subscriberRateClass))
                 {
-                    var line = reader.ReadLine();
-
-                    if (line == null) continue;
-
-                    var values = line.Split(',');
-                    var rFmSubscriber = new RFMSubscriber
-                    {
-                        Name = values[0],
-                        Email = values[1],
-                        Age = int.Parse(values[2]),
-                        Phone = values[3],
-                        City = values[4],
-                        FClass = int.Parse(values[8]),
-                        RClass = int.Parse(values[9]),
-                        MClass = int.Parse(values[10]),
-                        RFMClass = values[11]
-                    };
-
-                    if (rFmSubscriber.RFMClass.Equals(subscriberRateClass))
-                        subscribers.Add(rFmSubscriber);
+                    rfmSubscribers.Add(subscriber);
                 }
             }
 
-            return subscribers;
+            return rfmSubscribers;
         }
+
+        private string Predict(ITransformer loadedModel, InputRFMSubscriber input)
+        {
+            var predEngine = mlContext.Model.CreatePredictionEngine<InputRFMSubscriber, OutputRFMCustomer>(loadedModel);
+
+            var prediction = predEngine.Predict(input);
+
+            return prediction.RFMClass;
+        }
+
+        private InputRFMSubscriber CreateInputModel(RFMSubscriber rfmSubscriber)
+        {
+            var inputRFMSubscriber = new InputRFMSubscriber
+            {
+                Recency = rfmSubscriber.Recency.Value,
+                Frequency = rfmSubscriber.Frequency.Value,
+                Monetary = rfmSubscriber.Monetary.Value,
+            };
+
+            return inputRFMSubscriber;
+        }
+
+        private bool OutputIsGood(RFMSubscriber output, string subscriberRateClass)
+        {
+            return output.RFMClass.Equals(subscriberRateClass);
+        }
+
+        private ITransformer LoadModel()
+        {
+            string _appPath = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            string _modelPath = Path.Combine(_appPath, "..", "..", "..", "ML.Models", "model.zip");
+
+            ITransformer loadedModel = mlContext.Model.Load(_modelPath, out var modelInputSchema);
+
+            return loadedModel;
+        }
+    }
+
+    internal class OutputRFMCustomer
+    {
+        [ColumnName("PredictedLabel")]
+        public string RFMClass { get; set; }
+    }
+
+    internal class InputRFMSubscriber
+    {
+        [LoadColumn(5)]
+        public float Frequency { get; set; }
+
+        [LoadColumn(6)]
+        public float Recency { get; set; }
+
+        [LoadColumn(7)]
+        public float Monetary { get; set; }
+
+        [LoadColumn(11)]
+        public string RFMClass { get; set; }
     }
 }

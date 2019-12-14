@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.ML;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT
 {
@@ -62,6 +63,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddScoped(typeof(EmailSender));
             services.AddScoped(typeof(SubscriberParser));
             services.AddScoped<IKmeanCustomerAnalyzer, RFMKMeanAnalyzer>();
+            services.AddScoped(typeof(MLContext));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

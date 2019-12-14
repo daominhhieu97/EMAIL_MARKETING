@@ -1,8 +1,4 @@
 ﻿using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
 {
@@ -12,6 +8,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
         public MailingList MailingList { get; set; }
 
         public int SubscriberId { get; set; }
-        public Subscriber Subscriber { get; set; }
+        public RFMSubscriber Subscriber { get; set; }
     }
 }

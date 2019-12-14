@@ -9,7 +9,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
 
         public string NewName { get; set; }
 
-        public string CategoryType { get; set; }
+        public string SegmentationType { get; set; }
 
         public string SubscriberRateClass { get; set; }
 

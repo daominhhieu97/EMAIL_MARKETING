@@ -47,9 +47,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
         {
             var entity = modelBuilder.Entity<RFMSubscriber>();
 
-            entity.Property(e => e.RClass).HasColumnType("nvarchar(MAX)");
-            entity.Property(e => e.FClass).HasColumnType("nvarchar(MAX)");
-            entity.Property(e => e.MClass).HasColumnType("nvarchar(MAX)");
             entity.Property(e => e.RFMClass).HasColumnType("nvarchar(MAX)");
         }
 

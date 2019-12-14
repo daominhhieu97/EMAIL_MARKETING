@@ -111,5 +111,18 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             return RedirectToAction("Details", new { id = campaign.Id });
         }
+
+        public async Task<IActionResult> Resent(int id)
+        {
+            var campaign = _context.Set<Campaign>()
+                .Include(c => c.EmailInfo)
+                .Include(c => c.MailingList)
+                .Include(c => c.Scheduler)
+                .Single(c => c.Id == id);
+
+            await _emailSender.SendEmail(campaign);
+
+            return RedirectToAction("Details", new { id = campaign.Id });
+        }
     }
 }

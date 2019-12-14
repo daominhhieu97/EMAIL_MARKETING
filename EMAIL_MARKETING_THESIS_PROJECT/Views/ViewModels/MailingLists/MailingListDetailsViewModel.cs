@@ -15,7 +15,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
 
         public MailingList MailingList { get; set; }
 
-        public List<Subscriber> Subscribers { get; set; }
+        public List<RFMSubscriber> Subscribers { get; set; }
 
         public AddSegmentationViewModel AddSegmentationViewModel { get; set; }
 

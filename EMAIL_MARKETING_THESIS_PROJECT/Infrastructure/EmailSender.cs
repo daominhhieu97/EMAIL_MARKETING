@@ -63,9 +63,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
             var message = new MimeMessage();
 
             var from = new MailboxAddress(campaign.EmailInfo.Name, campaign.EmailInfo.Sender);
+
             message.From.Add(from);
 
             var to = new MailboxAddress(subscriber.Name, subscriber.Email);
+
             message.To.Add(to);
 
             message.Subject = campaign.EmailInfo.Subject;
