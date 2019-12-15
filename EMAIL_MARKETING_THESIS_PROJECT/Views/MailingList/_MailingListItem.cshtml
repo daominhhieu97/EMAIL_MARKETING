@@ -5,7 +5,7 @@
 		<td>@Model.Title</td>
 		<td>@Model.SubscribersLink.Count</td>
 		<td>
-			<a class="btn btn-info" asp-action="Edit" asp-controller="MailingList" asp-route-id="@Model.Id"><i class="fa fa-edit"></i></a>
+			<a class="btn btn-info" asp-action="Edit" asp-controller="MailingList" asp-route-id="@Model.Id"><i class="fa fa-edit" aria-hidden="true"></i></a>
 			<a class="btn btn-info" asp-action="Details" asp-controller="MailingList" asp-route-id="@Model.Id"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 			<a class="btn btn-info" asp-action="Delete" asp-controller="MailingList" asp-route-id="@Model.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
 		</td>

@@ -9,5 +9,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
         public string Name { get; set; }
 
         public string Path { get; set; }
+
+        public string Content { get; set; }
     }
 }

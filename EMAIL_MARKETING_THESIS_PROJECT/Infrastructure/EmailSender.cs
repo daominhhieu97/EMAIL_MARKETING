@@ -22,7 +22,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
         public async Task SendEmail(Campaign campaign)
         {
             var mailingList = campaign.MailingList;
-
             var subscribers = context.Set<MailingListSubscriber>()
                 .Where(ms => ms.MailingListId == mailingList.Id)
                 .Select(ms => ms.Subscriber)
@@ -42,6 +41,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
             }
 
             client.Disconnect(true);
+
             client.Dispose();
         }
 

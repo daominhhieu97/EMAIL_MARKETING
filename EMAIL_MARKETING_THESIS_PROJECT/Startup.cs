@@ -49,8 +49,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
                     })
                 .AddFacebook(options =>
                 {
-                    options.AppId = "2451937834934499";
-                    options.AppSecret = "7460c2ddf9374184ea33e2d32568145e";
+                    options.AppId = "827741734326742";
+                    options.AppSecret = "5d029ca8ac28e20c12a9d5b413b695ef";
                 })
                 .AddCookie()
                 ;
@@ -85,7 +85,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
      {
-         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+         endpoints.MapControllerRoute("default", "{controller=Campaign}/{action=Index}/{id?}");
      });
         }
     }

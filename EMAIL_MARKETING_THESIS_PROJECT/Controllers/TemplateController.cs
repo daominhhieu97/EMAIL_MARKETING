@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EMAIL_MARKETING_THESIS_PROJECT.Controllers.Common;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.Templates;
@@ -12,14 +13,14 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
     public class TemplateController : Controller
     {
-        private readonly ProjectContext _context;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly ProjectContext context;
+        private readonly IHostingEnvironment hostingEnvironment;
 
         public TemplateController(ProjectContext context,
             IHostingEnvironment hostingEnvironment)
         {
-            this._context = context;
-            this._hostingEnvironment = hostingEnvironment;
+            this.context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Create()
@@ -32,17 +33,18 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateTemplateViewModel viewModel)
         {
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+            var uploads = Path.Combine(hostingEnvironment.WebRootPath, "uploads");
             var uniqueFileName = GetUniqueFileName(viewModel.File.FileName);
             var filePath = Path.Combine(uploads, uniqueFileName);
             var templateModel = new Template
             {
                 Name = viewModel.Name,
-                Path = filePath
+                Path = filePath,
+                Content = await viewModel.File.ReadAsStringAsync()
             };
 
-            _context.Set<Template>().Add(templateModel);
-            _context.SaveChanges();
+            context.Set<Template>().Add(templateModel);
+            context.SaveChanges();
 
             await using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
@@ -63,26 +65,37 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult GetTemplates()
         {
-            var templates = _context.Set<Template>().ToList();
+            var templates = context.Set<Template>().ToList();
             return View(templates);
         }
 
         public IActionResult Details(int id)
         {
-            var template = _context.Set<Template>().Single(t => t.Id == id);
+            var template = context.Set<Template>().Single(t => t.Id == id);
 
             return View(template);
         }
 
         public IActionResult Delete(int id)
         {
-            var template = _context.Set<Template>().Single(t => t.Id == id);
+            var template = context.Set<Template>().Single(t => t.Id == id);
 
-            _context.Set<Template>().Remove(template);
+            context.Set<Template>().Remove(template);
 
-            _context.SaveChanges();
+            context.SaveChanges();
 
             return RedirectToAction("GetTemplates");
+        }
+
+        public IActionResult Edit(Template template)
+        {
+            var templateModel = context.Set<Template>().Single(m => m.Id == template.Id);
+
+            templateModel.Name = template.Name;
+
+            context.SaveChanges();
+
+            return RedirectToAction("Details", new { id = templateModel.Id });
         }
     }
 }

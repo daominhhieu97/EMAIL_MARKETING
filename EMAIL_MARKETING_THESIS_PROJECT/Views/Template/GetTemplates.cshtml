@@ -20,9 +20,6 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                Preview Template
-            </th>
-            <th>
                 Action
             </th>
         </tr>
@@ -34,10 +31,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td></td>
                 <td>
-                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-info" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-info" aria-hidden="true"></i></a>
+                    <a class="btn btn-info" asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash" arial-hidden="true"></i></a>
                 </td>
             </tr>
         }

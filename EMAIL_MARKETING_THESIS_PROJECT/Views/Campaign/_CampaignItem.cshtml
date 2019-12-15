@@ -1,15 +1,11 @@
 ﻿@model EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Campaign
 
 <tr>
-	<div class="well well-lg bg-light">
-		<td>@Model.Title</td>
-		<td>@Model.Scheduler.SendOn</td>
-		<td>@Model.EmailInfo.Subject</td>
-		<td>
-			<a asp-controller="Campaign" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
-			<a asp-controller="Campaign" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-info btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
-		</td>
-	</div>
+	<td>@Model.Title</td>
+	<td>@Model.Scheduler.SendOn</td>
+	<td>@Model.EmailInfo.Subject</td>
+	<td>
+		<a asp-controller="Campaign" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info btn-sm"><i class="fa fa-edit" aria-hidden="true"></i></a>
+		<a asp-controller="Campaign" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-info btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+	</td>
 </tr>
-
-<br/>
