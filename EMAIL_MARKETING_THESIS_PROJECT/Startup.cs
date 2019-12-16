@@ -32,11 +32,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
             RegisterOAuthWithFacebook(services);
-            RegisterEasyQuery(services);
-        }
-
-        private void RegisterEasyQuery(IServiceCollection services)
-        {
         }
 
         private void RegisterOAuthWithFacebook(IServiceCollection services)
