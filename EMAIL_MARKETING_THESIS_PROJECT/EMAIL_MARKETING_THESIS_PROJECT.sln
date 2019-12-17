@@ -11,7 +11,9 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonApplication_RFM", "..
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MachineLearning", "MachineLearning", "{BF3C53F5-CF7E-4CB3-A4FF-FCD462A26816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RFMModel", "..\RFMModel\RFMModel.csproj", "{30C9829A-2343-42AC-93DE-C92712203EEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RFMModel", "..\RFMModel\RFMModel.csproj", "{30C9829A-2343-42AC-93DE-C92712203EEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncomeSpending", "..\IncomeSpending\IncomeSpending.csproj", "{1EB91B01-2082-4450-8014-D69758A39432}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,12 +33,17 @@ Global
 		{30C9829A-2343-42AC-93DE-C92712203EEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30C9829A-2343-42AC-93DE-C92712203EEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30C9829A-2343-42AC-93DE-C92712203EEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EB91B01-2082-4450-8014-D69758A39432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EB91B01-2082-4450-8014-D69758A39432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EB91B01-2082-4450-8014-D69758A39432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EB91B01-2082-4450-8014-D69758A39432}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{30C9829A-2343-42AC-93DE-C92712203EEF} = {BF3C53F5-CF7E-4CB3-A4FF-FCD462A26816}
+		{1EB91B01-2082-4450-8014-D69758A39432} = {BF3C53F5-CF7E-4CB3-A4FF-FCD462A26816}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5C392E2A-1033-4D72-95EE-DF35C3BB297C}

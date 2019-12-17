@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="RFMFiles\" />
     <Folder Include="Views\frontend\js\MailingList\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
