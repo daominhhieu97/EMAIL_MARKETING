@@ -17,6 +17,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
     {
       try
       {
+        criteria.Name = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.Name;
+        criteria.Area = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.Area;
+        criteria.City = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.City;
+        criteria.Email = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.Email;
+
         return rfmSubscriber.Name.Contains(criteria.Name)
                || rfmSubscriber.Age == criteria.Age
                || rfmSubscriber.Area.Contains(criteria.Area)

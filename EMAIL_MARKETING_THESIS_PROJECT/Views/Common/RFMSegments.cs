@@ -17,7 +17,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.Common
             "Recent",
             "Promising",
             "Risk",
-            "Can't Lose"
+            "Can't Lose",
+            "Loyal"
         };
 
         public static SelectListItem[] GetRFMSegments => Segments.Select(s => new SelectListItem { Text = s, Value = s }).OrderBy(x => x.Text).ToArray();
