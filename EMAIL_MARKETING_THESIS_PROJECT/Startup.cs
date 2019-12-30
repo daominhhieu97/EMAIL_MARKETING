@@ -2,6 +2,7 @@ using EMAIL_MARKETING_THESIS_PROJECT.Controllers;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
+using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Builder;
@@ -53,12 +54,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
 
         private void RegisterDependencies(IServiceCollection services)
         {
-            services.AddSingleton(new DemographicFiltering());
-            services.AddSingleton(new GeographicFiltering());
+            services.AddSingleton(new Filtering());
             services.AddScoped(typeof(EmailSender));
             services.AddScoped(typeof(SubscriberParser));
-            services.AddScoped<IKmeanCustomerAnalyzer, RFMKMeanAnalyzer>();
-            services.AddScoped(typeof(MLContext));
+            services.AddScoped<IKmeanCustomerAnalyzer<RFMSubscriber>, RFMKMeanAnalyzer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,7 +79,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
      {
-         endpoints.MapControllerRoute("default", "{controller=Campaign}/{action=Index}/{id?}");
+         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
      });
         }
     }

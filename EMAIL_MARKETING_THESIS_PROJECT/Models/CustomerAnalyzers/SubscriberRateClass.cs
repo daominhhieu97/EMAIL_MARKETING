@@ -23,8 +23,4 @@
 
         public new static string NormalCustomer => normalCustomer;
     }
-
-    public class IncomeSubscriberRateClass : SubscriberRateClass
-    {
-    }
 }

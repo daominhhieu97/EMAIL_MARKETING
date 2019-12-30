@@ -49,11 +49,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
         {
             var bodyBuilder = new BodyBuilder();
 
-            using var sourceReader = File.OpenText(@template.Path);
-
-            var htmlBody = sourceReader.ReadToEnd();
-
-            bodyBuilder.HtmlBody = htmlBody;
+            bodyBuilder.HtmlBody = template.Content;
 
             return bodyBuilder.ToMessageBody();
         }

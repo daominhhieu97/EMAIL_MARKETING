@@ -2,10 +2,8 @@
 {
     public class SegmentationTypes
     {
-        public const string DEMOGRAPHIC = "Demographic";
+        public const string FILTER = "Filter";
 
-        public const string GEOGRAPHIC = "Geographic";
-
-        public const string KMEANS = "Kmeans";
+        public const string RFMANALYSIS = "RFM Analysis";
     }
 }

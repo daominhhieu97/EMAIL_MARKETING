@@ -13,6 +13,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
 
         public float? Monetary { get; set; }
 
-        public string? RFMClass { get; set; }
+        public string RFMClass { get; set; }
     }
 }

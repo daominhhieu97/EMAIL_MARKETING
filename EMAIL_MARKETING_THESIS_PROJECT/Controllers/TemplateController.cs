@@ -39,7 +39,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             var templateModel = new Template
             {
                 Name = viewModel.Name,
-                Path = filePath,
                 Content = await viewModel.File.ReadAsStringAsync()
             };
 

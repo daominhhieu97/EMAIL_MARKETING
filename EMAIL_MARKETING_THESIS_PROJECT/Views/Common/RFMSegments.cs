@@ -6,14 +6,20 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.Common
 {
     public class RFMSegments
     {
-        public static Dictionary<string, string> Segments => new Dictionary<string, string>
+        public static string[] Segments => new string[]
         {
-            { "Bests Customers", "111"},
-            { "High-spending New Customers", "142" },
-            { "Lowest-Spending Active Loyal Customers", "113"},
-            { "Churned Best Customers", "411"}
+            "Hibernating",
+            "Need Attention",
+            "Lost",
+            "Sleep",
+            "Champion",
+            "Potential",
+            "Recent",
+            "Promising",
+            "Risk",
+            "Can't Lose"
         };
 
-        public static SelectListItem[] GetRFMSegments => Segments.Select(s => new SelectListItem { Text = s.Key, Value = s.Value }).ToArray();
+        public static SelectListItem[] GetRFMSegments => Segments.Select(s => new SelectListItem { Text = s, Value = s }).OrderBy(x => x.Text).ToArray();
     }
 }

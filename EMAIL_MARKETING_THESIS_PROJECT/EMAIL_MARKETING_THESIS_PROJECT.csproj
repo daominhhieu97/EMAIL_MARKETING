@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191229173715_RemovePathPropertyFromTemplate.cs" />
+    <Compile Remove="Migrations\20191229173715_RemovePathPropertyFromTemplate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Views\frontend\img\email_marketing_background.jpg" />
   </ItemGroup>
 
@@ -23,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\frontend\js\MailingList\" />
+    <Folder Include="Views\frontend\js\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 

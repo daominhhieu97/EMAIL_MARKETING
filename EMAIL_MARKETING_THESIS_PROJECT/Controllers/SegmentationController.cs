@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
@@ -9,26 +8,22 @@ using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
     public class SegmentationController : Controller
     {
         private readonly ProjectContext context;
-        private readonly DemographicFiltering demographicFiltering;
-        private readonly GeographicFiltering geographicFiltering;
-        private readonly IKmeanCustomerAnalyzer kmeanCustomerAnalyzer;
+        private readonly Filtering filtering;
+        private readonly IKmeanCustomerAnalyzer<RFMSubscriber> kmeanCustomerAnalyzer;
 
         public SegmentationController(
             ProjectContext context,
-            DemographicFiltering demographicFiltering,
-            GeographicFiltering geographicFiltering,
-            IKmeanCustomerAnalyzer kmeanCustomerAnalyzer)
+            Filtering filtering,
+            IKmeanCustomerAnalyzer<RFMSubscriber> kmeanCustomerAnalyzer)
         {
             this.context = context;
-            this.demographicFiltering = demographicFiltering;
-            this.geographicFiltering = geographicFiltering;
+            this.filtering = filtering;
             this.kmeanCustomerAnalyzer = kmeanCustomerAnalyzer;
         }
 
@@ -55,26 +50,16 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             var segmentedMailingList = new MailingList(viewModel.NewName);
 
             List<RFMSubscriber> subscribers;
-            switch (viewModel.SegmentationType)
+
+            if (viewModel.UseKmeans)
             {
-                case SegmentationTypes.DEMOGRAPHIC:
-                    subscribers = demographicFiltering.Filter(matchedSubscribers, viewModel.Criteria);
-                    break;
-
-                case SegmentationTypes.GEOGRAPHIC:
-                    subscribers = geographicFiltering.Filter(matchedSubscribers, viewModel.Criteria);
-                    break;
-
-                case SegmentationTypes.KMEANS:
-                    if (matchedSubscribers.Any(s => (s.Frequency == null || s.Monetary == null || s.Recency == null)))
-                        subscribers = new List<RFMSubscriber>();
-
-                    subscribers = kmeanCustomerAnalyzer.Analyze(matchedSubscribers, viewModel.SubscriberRateClass);
-                    break;
-
-                default:
-                    subscribers = new List<RFMSubscriber>();
-                    break;
+                subscribers = matchedSubscribers.Any(s => (s.Frequency != null || s.Monetary != null || s.Recency != null || s.RFMClass != null))
+                    ? kmeanCustomerAnalyzer.Analyze(matchedSubscribers, viewModel.CriteriaViewModel, viewModel.SubscriberRateClass)
+                    : new List<RFMSubscriber>();
+            }
+            else
+            {
+                subscribers = filtering.Filter(matchedSubscribers, viewModel.CriteriaViewModel);
             }
 
             await CreateNewMailingListWithSubscriber(segmentedMailingList, subscribers);
