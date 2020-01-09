@@ -128,9 +128,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("Path")
-                        .HasColumnType("nvarchar(MAX)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Template");

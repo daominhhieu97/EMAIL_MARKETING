@@ -29,5 +29,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
         public int MailingListId { get; set; }
 
         public IFormFile File { get; set; }
+
+        public bool RfmModel { get; set; }
     }
 }

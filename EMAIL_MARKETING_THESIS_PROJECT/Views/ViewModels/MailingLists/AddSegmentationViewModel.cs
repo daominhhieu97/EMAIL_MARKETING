@@ -11,7 +11,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists
 
         public string NewName { get; set; }
 
-        public bool UseKmeans { get; set; }
+        public bool UseRFMFiltering { get; set; }
 
         public string SubscriberRateClass { get; set; }
 

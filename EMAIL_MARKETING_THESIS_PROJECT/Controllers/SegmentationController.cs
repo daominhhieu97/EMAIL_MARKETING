@@ -8,6 +8,7 @@ using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
@@ -16,15 +17,17 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         private readonly ProjectContext context;
         private readonly Filtering filtering;
         private readonly IKmeanCustomerAnalyzer<RFMSubscriber> kmeanCustomerAnalyzer;
+        private readonly IToastNotification toastNotification;
 
         public SegmentationController(
             ProjectContext context,
             Filtering filtering,
-            IKmeanCustomerAnalyzer<RFMSubscriber> kmeanCustomerAnalyzer)
+            IKmeanCustomerAnalyzer<RFMSubscriber> kmeanCustomerAnalyzer, IToastNotification toastNotification)
         {
             this.context = context;
             this.filtering = filtering;
             this.kmeanCustomerAnalyzer = kmeanCustomerAnalyzer;
+            this.toastNotification = toastNotification;
         }
 
         [HttpPost]
@@ -37,24 +40,28 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             if (subscribers.Count == 0)
             {
-                return BadRequest(new { errorMessage = "There aren't any subscriber in this mailing list." });
+                toastNotification.AddInfoToastMessage("There aren't any subscriber in this mailing list.");
+
+                return RedirectToAction("GetMailingLists", "MailingList");
             }
 
-            var segmentedMailingList = await SegmentSubscriber(viewModel.AddSegmentationViewModel, subscribers);
+            await SegmentSubscriber(viewModel.AddSegmentationViewModel, subscribers);
+
+            toastNotification.AddSuccessToastMessage($"Segmented {viewModel.AddSegmentationViewModel.NewName} successfully.");
 
             return RedirectToAction("GetMailingLists", "MailingList");
         }
 
-        private async Task<MailingList> SegmentSubscriber(AddSegmentationViewModel viewModel, List<RFMSubscriber> matchedSubscribers)
+        private async Task SegmentSubscriber(AddSegmentationViewModel viewModel, List<RFMSubscriber> matchedSubscribers)
         {
             var segmentedMailingList = new MailingList(viewModel.NewName);
 
             List<RFMSubscriber> subscribers;
 
-            if (viewModel.UseKmeans)
+            if (viewModel.UseRFMFiltering)
             {
                 subscribers = matchedSubscribers.Any(s => (s.Frequency != null || s.Monetary != null || s.Recency != null || s.RFMClass != null))
-                    ? kmeanCustomerAnalyzer.Analyze(matchedSubscribers, viewModel.CriteriaViewModel, viewModel.SubscriberRateClass)
+                    ? kmeanCustomerAnalyzer.Filter(matchedSubscribers, viewModel.CriteriaViewModel, viewModel.SubscriberRateClass)
                     : new List<RFMSubscriber>();
             }
             else
@@ -63,8 +70,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             }
 
             await CreateNewMailingListWithSubscriber(segmentedMailingList, subscribers);
-
-            return segmentedMailingList;
         }
 
         private async Task CreateNewMailingListWithSubscriber(MailingList segmentedMailingList, IEnumerable<RFMSubscriber> subscribers)

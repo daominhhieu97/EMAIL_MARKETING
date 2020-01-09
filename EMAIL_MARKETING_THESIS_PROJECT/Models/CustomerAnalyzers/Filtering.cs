@@ -10,28 +10,47 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
   {
     public List<RFMSubscriber> Filter(List<RFMSubscriber> list, CriteriaViewModel criteria)
     {
-      return list.Where(subscriber => SubscriberIsGood(subscriber, criteria)).ToList();
+      var result = new List<RFMSubscriber>();
+
+      foreach (var rfmSubscriber in list)
+      {
+        if (SubscriberIsGood(rfmSubscriber, criteria))
+          result.Add(rfmSubscriber);
+      }
+
+      return result;
     }
 
     private bool SubscriberIsGood(RFMSubscriber rfmSubscriber, CriteriaViewModel criteria)
     {
-      try
-      {
-        criteria.Name = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.Name;
-        criteria.Area = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.Area;
-        criteria.City = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.City;
-        criteria.Email = string.IsNullOrEmpty(criteria.Name) ? string.Empty : criteria.Email;
+      bool flag = false;
 
-        return rfmSubscriber.Name.Contains(criteria.Name)
-               || rfmSubscriber.Age == criteria.Age
-               || rfmSubscriber.Area.Contains(criteria.Area)
-               || rfmSubscriber.City.Contains(criteria.City)
-               || rfmSubscriber.Email.Contains(criteria.Email);
-      }
-      catch (Exception e)
+      if (!string.IsNullOrEmpty(criteria.Name) && rfmSubscriber.Name.Contains(criteria.Name))
       {
-        return false;
+        flag = true;
       }
+
+      if (rfmSubscriber.Age == criteria.Age)
+      {
+        flag = true;
+      }
+
+      if (!string.IsNullOrEmpty(criteria.City) && rfmSubscriber.City.Contains(criteria.City))
+      {
+        flag = true;
+      }
+
+      if (!string.IsNullOrEmpty(criteria.Area) && rfmSubscriber.Area.Contains(criteria.Area))
+      {
+        flag = true;
+      }
+
+      if (!string.IsNullOrEmpty(criteria.Email) && rfmSubscriber.Email.Contains(criteria.Email))
+      {
+        flag = true;
+      }
+
+      return flag;
     }
   }
 }

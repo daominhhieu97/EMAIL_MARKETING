@@ -1,4 +1,3 @@
-using EMAIL_MARKETING_THESIS_PROJECT.Controllers;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
@@ -11,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.ML;
+using NToastNotify;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT
 {
@@ -33,6 +32,19 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
             RegisterOAuthWithFacebook(services);
+
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = false,
+                PositionClass = ToastPositions.BottomCenter
+            });
+
+            services.AddMvc().AddNToastNotifyNoty(new NotyOptions
+            {
+                ProgressBar = true,
+                Timeout = 3000,
+                Theme = "mint"
+            });
         }
 
         private void RegisterOAuthWithFacebook(IServiceCollection services)
@@ -56,7 +68,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
         {
             services.AddSingleton(new Filtering());
             services.AddScoped(typeof(EmailSender));
-            services.AddScoped(typeof(SubscriberParser));
             services.AddScoped<IKmeanCustomerAnalyzer<RFMSubscriber>, RFMKMeanAnalyzer>();
         }
 
@@ -73,6 +84,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseNToastNotify();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

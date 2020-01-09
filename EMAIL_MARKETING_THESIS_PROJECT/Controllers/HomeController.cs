@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Customer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
@@ -26,7 +27,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [AllowAnonymous]
         public IActionResult Error()
         {
             return View();

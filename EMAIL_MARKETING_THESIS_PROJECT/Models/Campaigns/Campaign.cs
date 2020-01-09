@@ -23,7 +23,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 
         public void Update(Campaign updatedCampaign)
         {
-            throw new NotImplementedException();
+            this.Title = updatedCampaign.Title;
         }
     }
 }

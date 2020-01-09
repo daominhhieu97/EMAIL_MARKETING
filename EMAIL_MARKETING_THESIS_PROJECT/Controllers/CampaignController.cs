@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
@@ -6,17 +7,20 @@ using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.Campaigns;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
     public class CampaignController : Controller
     {
+        private readonly IToastNotification toastNotification;
         private readonly ProjectContext context;
         private readonly EmailSender emailSender;
 
-        public CampaignController(ProjectContext context, EmailSender emailSender)
+        public CampaignController(ProjectContext context, EmailSender emailSender, IToastNotification toastNotification)
         {
             this.emailSender = emailSender;
+            this.toastNotification = toastNotification;
             this.context = context;
         }
 
@@ -58,11 +62,18 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             campaign.EmailInfo.Template = template;
 
+            if(campaign.Scheduler.IsSendNow) campaign.Scheduler.SendOn = DateTime.Now;
+
             context.Set<Campaign>().Add(campaign);
 
             context.SaveChanges();
 
-            await emailSender.SendEmail(campaign);
+            if (campaign.Scheduler.IsSendNow)
+            {
+                await emailSender.SendEmail(campaign);
+            }
+
+            toastNotification.AddSuccessToastMessage($"Create the new campaign {campaign.Title} successfully.");
 
             return RedirectToAction("Index");
         }
@@ -72,6 +83,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             var campaign = context.Set<Campaign>().Single(c => c.Id == viewModel.Id);
 
             campaign.Update(viewModel);
+
+            context.SaveChanges();
+
+            toastNotification.AddSuccessToastMessage($"Update {campaign.Title} successfully.");
 
             return RedirectToAction("Details", "Campaign", new { id = campaign.Id });
         }
@@ -94,7 +109,17 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             context.Set<Campaign>().Remove(campaign);
 
-            context.SaveChanges();
+            try
+            {
+                context.SaveChanges();
+
+                toastNotification.AddSuccessToastMessage($"Delete {campaign.Title} successfully.");
+            }
+            catch
+            {
+                toastNotification.AddSuccessToastMessage($"Delete {campaign.Title} failed.");
+            }
+            
 
             return RedirectToAction("Index", "Campaign");
         }
@@ -121,6 +146,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
                 .Single(c => c.Id == id);
 
             await emailSender.SendEmail(campaign);
+
+            toastNotification.AddSuccessToastMessage("Resend the emails successfully.");
 
             return RedirectToAction("Details", new { id = campaign.Id });
         }

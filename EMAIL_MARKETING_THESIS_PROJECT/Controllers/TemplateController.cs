@@ -8,6 +8,7 @@ using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.Templates;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 {
@@ -15,12 +16,14 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
     {
         private readonly ProjectContext context;
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IToastNotification toastNotification;
 
         public TemplateController(ProjectContext context,
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment, IToastNotification toastNotification)
         {
             this.context = context;
             this.hostingEnvironment = hostingEnvironment;
+            this.toastNotification = toastNotification;
         }
 
         public IActionResult Create()
@@ -49,6 +52,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 await viewModel.File.CopyToAsync(fileStream);
             }
+
+            toastNotification.AddSuccessToastMessage("Created the new template successfully.");
 
             return RedirectToAction("Details", new { id = templateModel.Id });
         }
@@ -83,6 +88,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             context.SaveChanges();
 
+            toastNotification.AddSuccessToastMessage($"Deleted {template.Name} successfully.");
+
             return RedirectToAction("GetTemplates");
         }
 
@@ -93,6 +100,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             templateModel.Name = template.Name;
 
             context.SaveChanges();
+
+            toastNotification.AddSuccessToastMessage($"Edited {template.Name} successfully.");
 
             return RedirectToAction("Details", new { id = templateModel.Id });
         }
