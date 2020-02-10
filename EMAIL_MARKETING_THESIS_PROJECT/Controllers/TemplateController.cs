@@ -82,13 +82,21 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
         public IActionResult Delete(int id)
         {
-            var template = context.Set<Template>().Single(t => t.Id == id);
+            try
+            {
+                var template = context.Set<Template>().Single(t => t.Id == id);
 
-            context.Set<Template>().Remove(template);
+                context.Set<Template>().Remove(template);
 
-            context.SaveChanges();
+                context.SaveChanges();
 
-            toastNotification.AddSuccessToastMessage($"Deleted {template.Name} successfully.");
+                toastNotification.AddSuccessToastMessage($"Deleted {template.Name} successfully.");
+            }
+            catch
+            {
+                toastNotification.AddErrorToastMessage("There was an error.");
+            }
+            
 
             return RedirectToAction("GetTemplates");
         }

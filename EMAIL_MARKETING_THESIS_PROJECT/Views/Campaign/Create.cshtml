@@ -16,27 +16,10 @@
                         <h5 class="display-5">Step 1: Campaign Information</h5>
                         <hr class="my-4">
                         <div class="form-group">
-                            <label id="step1">Title:</label>
+                            <label id="step1">Title of Campaign:</label>
                             @Html.TextBoxFor(m => m.Campaign.Title, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Campaign.Title)
                         </div>
-
-                        <div class="form-group">
-                            <label>Mailing Lists:</label>
-                            @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems(), new { @class = "form-control" })
-                            <a asp-action="Create" asp-controller="MailingList">New Mailing List...</a>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Message Content:</label>
-                            @Html.DropDownListFor(m => m.SelectedTemplateId, Model.GetTemplateItems(), new { @class = "form-control" })
-                            <a asp-action="Create" asp-controller="Template">New Template...</a>
-                        </div>
-                    </div>
-
-                    <div class="jumbotron">
-                        <h5 class="display-5">Step 2: Set Email Information</h5>
-                        <hr class="my-4">
 
                         <div class="form-group">
                             <label>Sender Email Address:</label>
@@ -51,9 +34,26 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Subject Line:</label>
+                            <label>Email Subject Line:</label>
                             @Html.TextBoxFor(m => m.Campaign.EmailInfo.Subject, new { @class = "form-control" })
                             @Html.ValidationMessageFor(m => m.Campaign.EmailInfo.Subject)
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mailing Lists:</label>
+                            @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems(), new { @class = "form-control" })
+                            <a asp-action="Create" asp-controller="MailingList">New Mailing List...</a>
+                        </div>
+                    </div>
+
+                    <div class="jumbotron">
+                        <h5 class="display-5">Step 2: Message Content</h5>
+                        <hr class="my-4">
+
+                        <div class="form-group">
+                            <label>Message Content:</label>
+                            @Html.DropDownListFor(m => m.SelectedTemplateId, Model.GetTemplateItems(), new { @class = "form-control" })
+                            <a asp-action="Create" asp-controller="Template">New Template...</a>
                         </div>
                     </div>
 

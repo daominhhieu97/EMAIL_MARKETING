@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 {

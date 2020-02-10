@@ -75,7 +75,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             toastNotification.AddSuccessToastMessage($"Create the new campaign {campaign.Title} successfully.");
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", new { campaign.Id});
         }
 
         public IActionResult Edit(Campaign viewModel)
@@ -119,7 +119,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 toastNotification.AddSuccessToastMessage($"Delete {campaign.Title} failed.");
             }
-            
+
 
             return RedirectToAction("Index", "Campaign");
         }
