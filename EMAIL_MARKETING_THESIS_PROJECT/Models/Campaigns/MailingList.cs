@@ -8,12 +8,15 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
     {
         public MailingList()
         {
+            this.SubscribersLink = new List<MailingListSubscriber>();
+            this.Segments = new List<Segment>();
         }
 
         public MailingList(string name)
         {
             this.Title = name;
             this.SubscribersLink = new List<MailingListSubscriber>();
+            this.Segments = new List<Segment>();
         }
 
         public int Id { get; set; }
@@ -21,6 +24,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
         public string Title { get; set; }
 
         public virtual List<MailingListSubscriber> SubscribersLink { get; set; }
+
+        public virtual ICollection<Segment> Segments { get; set; }
 
         internal void Update(string title)
         {

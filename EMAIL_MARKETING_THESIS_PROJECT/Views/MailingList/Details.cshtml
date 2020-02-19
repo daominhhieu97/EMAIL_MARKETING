@@ -15,6 +15,7 @@
 <div>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addContactModal"><i class="fa fa-plus"></i>&nbsp;Add Contacts</button>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#segmentModal"><i class="fa fa-plus"></i>&nbsp;Add Segment</button>
+    <a type="button" class="btn btn-info" asp-action="ViewSegments" asp-controller="MailingList" asp-route-id="@Model.MailingList.Id"><i class="fa fa-eye"></i>&nbsp;View Segments</a>
 </div>
 <br />
 
@@ -72,7 +73,7 @@
 
                     <p>Special Filter: </p>
                     <div class="col-sm-3 form-check">
-                        <input asp-for="AddSegmentationViewModel.UseRFMFiltering" class="form-check-input">
+                        <input asp-for="AddSegmentationViewModel.UseRFMFiltering" class="form-check-input" data-toggle="tooltip" data-placement="top" title="If you check this, please choose at least one subscriber rate class.">
                         <label class="form-check-label">
                             RFM Filter
                         </label>
@@ -82,7 +83,7 @@
 
                     <div id="kmeans-block form-group">
                         <p>Choose Subscriber Rate Class:</p>
-                        @Html.DropDownListFor(m => m.AddSegmentationViewModel.SubscriberRateClass, RFMSegments.GetRFMSegments, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.AddSegmentationViewModel.SubscriberRateClass, RFMSegments.GetRFMSegments, "Please choose one...", new { @class = "form-control" })
                     </div>
 
                     <hr />
@@ -156,7 +157,7 @@
                 <div class="modal-body">
 
                     <div class="form-check">
-                        <input asp-for="AddContactsViewModel.RfmModel" class="form-check-input">
+                        <input asp-for="AddContactsViewModel.RfmModel" class="form-check-input" data-toggle="tooltip" data-placement="top" title="If you check this, please input/import subscriber string format: Name, Email, Phone, Unit Price, Recency, Frequency">
                         <label class="form-check-label">
                             RFM Model
                         </label>

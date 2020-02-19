@@ -1,3 +1,4 @@
+using System;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Infrastructure;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
@@ -32,6 +33,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
             RegisterOAuthWithFacebook(services);
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
@@ -84,6 +90,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSession();
             app.UseNToastNotify();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

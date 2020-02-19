@@ -40,7 +40,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         {
             var viewModel = new CreateCampaignViewModel
             {
-                MailingLists = context.Set<MailingList>().ToList(),
+                MailingLists = context.Set<MailingList>().Include(m => m.Segments).ToList(),
                 Templates = context.Set<Template>().ToList()
             };
 
@@ -54,15 +54,18 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 Title = viewModel.Campaign.Title,
                 EmailInfo = viewModel.Campaign.EmailInfo,
-                MailingList = context.Set<MailingList>().Single(ml => ml.Id == viewModel.SelectedMailingListId),
+                SegmentId = viewModel.SelectedMailingListId,
                 Scheduler = viewModel.Campaign.Scheduler
             };
 
             var template = context.Set<Template>().Single(t => t.Id == viewModel.SelectedTemplateId);
 
+            var segment = context.Set<Segment>().Include(s => s.MailingList)
+                .Single(s => s.Id == viewModel.SelectedMailingListId);
+            campaign.MailingList = segment.MailingList;
             campaign.EmailInfo.Template = template;
 
-            if(campaign.Scheduler.IsSendNow) campaign.Scheduler.SendOn = DateTime.Now;
+            if (campaign.Scheduler.IsSendNow) campaign.Scheduler.SendOn = DateTime.Now;
 
             context.Set<Campaign>().Add(campaign);
 
@@ -75,7 +78,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
 
             toastNotification.AddSuccessToastMessage($"Create the new campaign {campaign.Title} successfully.");
 
-            return RedirectToAction("Details", new { campaign.Id});
+            return RedirectToAction("Details", new { campaign.Id });
         }
 
         public IActionResult Edit(Campaign viewModel)
@@ -119,7 +122,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 toastNotification.AddSuccessToastMessage($"Delete {campaign.Title} failed.");
             }
-
 
             return RedirectToAction("Index", "Campaign");
         }

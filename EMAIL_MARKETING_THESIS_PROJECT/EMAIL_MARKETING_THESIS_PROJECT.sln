@@ -9,8 +9,6 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Income_Spending", "..\Incom
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonApplication_RFM", "..\PythonApplication_RFM\PythonApplication_RFM.pyproj", "{C1DA0247-7F3C-46EB-A81C-803D4C52C88A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLNETClassification", "..\MLNETClassification\MLNETClassification.csproj", "{A1EF4FF0-8AE8-4FC5-92D5-639CF1F8F613}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,10 +23,6 @@ Global
 		{6C59762A-CF25-49C6-8B6E-ED7B2940795B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1DA0247-7F3C-46EB-A81C-803D4C52C88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C1DA0247-7F3C-46EB-A81C-803D4C52C88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1EF4FF0-8AE8-4FC5-92D5-639CF1F8F613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1EF4FF0-8AE8-4FC5-92D5-639CF1F8F613}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1EF4FF0-8AE8-4FC5-92D5-639CF1F8F613}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1EF4FF0-8AE8-4FC5-92D5-639CF1F8F613}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

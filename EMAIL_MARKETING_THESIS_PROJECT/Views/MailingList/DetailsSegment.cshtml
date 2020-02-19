@@ -1,0 +1,47 @@
+﻿@model EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Segment
+
+@{
+    ViewData["Title"] = "DetailsSegment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions {
+    private bool HasRfmSubscribers() => Model.Subscribers.Any(s => (s.Frequency != null || s.Monetary != null || s.Recency != null));
+}
+
+<h4>Segment Detail</h4>
+
+<br />
+
+<a class="btn btn-primary" asp-action="DeleteAllSubscribers" asp-route-id="@Model.Id"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; Delete All</a>
+
+<br />
+
+<table class="table table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>@Html.Label("Name")</th>
+            <th>@Html.Label("Phone")</th>
+            <th>@Html.Label("Email")</th>
+            @if (HasRfmSubscribers())
+            {
+                <th>@Html.Label("Rate")</th>
+
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Subscribers)
+        {
+            <tr>
+                <th scope="row">@item.Name</th>
+                <td>@item.Phone</td>
+                <td>@item.Email</td>
+                @if (HasRfmSubscribers())
+                {
+                    <td>@item.RFMClass</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

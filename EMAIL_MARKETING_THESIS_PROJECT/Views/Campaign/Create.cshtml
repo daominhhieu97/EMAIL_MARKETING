@@ -41,7 +41,18 @@
 
                         <div class="form-group">
                             <label>Mailing Lists:</label>
-                            @Html.DropDownListFor(m => m.SelectedMailingListId, Model.GetMailingListItems(), new { @class = "form-control" })
+                            <select asp-for="SelectedMailingListId" class="form-control">
+                                <option value="" selected="selected">Select an option...</option>
+                                @foreach (var ml in Model.MailingLists)
+                                {
+                                    <optgroup label="@ml.Title">
+                                        @foreach (var segment in ml.Segments)
+                                        {
+                                            <option value="@segment.Id">@segment.Name</option>
+                                        }
+                                    </optgroup>
+                                }
+                            </select>
                             <a asp-action="Create" asp-controller="MailingList">New Mailing List...</a>
                         </div>
                     </div>

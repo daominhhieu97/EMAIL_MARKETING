@@ -4,9 +4,11 @@ using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
 {
@@ -21,11 +23,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Infrastructure
 
         public async Task SendEmail(Campaign campaign)
         {
-            var mailingList = campaign.MailingList;
-            var subscribers = context.Set<MailingListSubscriber>()
-                .Where(ms => ms.MailingListId == mailingList.Id)
-                .Select(ms => ms.Subscriber)
-                .ToList();
+            var segment = context.Set<Segment>().Include(s => s.Subscribers).Single(s => s.Id == campaign.SegmentId);
+            var subscribers = segment.Subscribers;
 
             var client = new SmtpClient();
 

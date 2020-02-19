@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Immutable;
+using System.Linq;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Customer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
@@ -38,6 +40,10 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
         {
             if (CustomerRegistered(customer))
             {
+                var loggedCustomer = context.Set<Customer>().Single(x => x.Username == customer.Username && x.Password == customer.Password);
+
+                HttpContext.Session.SetString("UserId", loggedCustomer.Id.ToString());
+
                 return RedirectToAction("Index", "Campaign");
             }
 
@@ -62,6 +68,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult LogOut()
+        {
+            return RedirectToAction("Index");
         }
     }
 }

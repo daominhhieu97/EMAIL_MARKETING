@@ -29,6 +29,9 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                     b.Property<int?>("MailingListId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SegmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(MAX)");
 
@@ -112,6 +115,27 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                         .IsUnique();
 
                     b.ToTable("Scheduler");
+                });
+
+            modelBuilder.Entity("EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Segment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("MailingListId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(MAX)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MailingListId");
+
+                    b.ToTable("Segment");
                 });
 
             modelBuilder.Entity("EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Template", b =>
@@ -225,6 +249,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                     b.Property<float?>("Recency")
                         .HasColumnType("real");
 
+                    b.Property<int?>("SegmentId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("SegmentId");
+
                     b.HasDiscriminator().HasValue("RFMSubscriber");
                 });
 
@@ -257,6 +286,13 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Segment", b =>
+                {
+                    b.HasOne("EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.MailingList", "MailingList")
+                        .WithMany("Segments")
+                        .HasForeignKey("MailingListId");
+                });
+
             modelBuilder.Entity("EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers.MailingListSubscriber", b =>
                 {
                     b.HasOne("EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.MailingList", "MailingList")
@@ -270,6 +306,13 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Migrations
                         .HasForeignKey("SubscriberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers.RFMSubscriber", b =>
+                {
+                    b.HasOne("EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Segment", null)
+                        .WithMany("Subscribers")
+                        .HasForeignKey("SegmentId");
                 });
 #pragma warning restore 612, 618
         }

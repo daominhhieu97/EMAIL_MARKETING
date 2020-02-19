@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using EMAIL_MARKETING_THESIS_PROJECT.DAL;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns;
-using EMAIL_MARKETING_THESIS_PROJECT.Models.Common;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers;
 using EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers;
 using EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.MailingLists;
@@ -45,17 +44,18 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
                 return RedirectToAction("GetMailingLists", "MailingList");
             }
 
-            await SegmentSubscriber(viewModel.AddSegmentationViewModel, subscribers);
+            await SegmentSubscriber(viewModel.AddSegmentationViewModel, subscribers, viewModel.AddSegmentationViewModel.MailingListId);
 
             toastNotification.AddSuccessToastMessage($"Segmented {viewModel.AddSegmentationViewModel.NewName} successfully.");
 
-            return RedirectToAction("GetMailingLists", "MailingList");
+            return RedirectToAction("ViewSegments", "MailingList", new { id = viewModel.AddSegmentationViewModel.MailingListId });
         }
 
-        private async Task SegmentSubscriber(AddSegmentationViewModel viewModel, List<RFMSubscriber> matchedSubscribers)
+        private async Task SegmentSubscriber(
+            AddSegmentationViewModel viewModel,
+            List<RFMSubscriber> matchedSubscribers,
+            int viewModelMailingListId)
         {
-            var segmentedMailingList = new MailingList(viewModel.NewName);
-
             List<RFMSubscriber> subscribers;
 
             if (viewModel.UseRFMFiltering)
@@ -69,17 +69,21 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
                 subscribers = filtering.Filter(matchedSubscribers, viewModel.CriteriaViewModel);
             }
 
-            await CreateNewMailingListWithSubscriber(segmentedMailingList, subscribers);
+            await CreateNewMailingListWithSubscriber(viewModelMailingListId, subscribers, viewModel.NewName);
         }
 
-        private async Task CreateNewMailingListWithSubscriber(MailingList segmentedMailingList, IEnumerable<RFMSubscriber> subscribers)
+        private async Task CreateNewMailingListWithSubscriber(int viewModelMailingListId,
+            IEnumerable<RFMSubscriber> subscribers, string viewModelNewName)
         {
-            foreach (var subscriber in subscribers)
+            var segment = new Segment(viewModelNewName);
+
+            foreach (var rfmSubscriber in subscribers)
             {
-                segmentedMailingList.SubscribersLink.Add(new MailingListSubscriber { MailingList = segmentedMailingList, Subscriber = subscriber });
+                segment.Subscribers.Add(rfmSubscriber);
             }
 
-            context.Set<MailingList>().Add(segmentedMailingList);
+            var mailingList = context.Set<MailingList>().Single(m => m.Id == viewModelMailingListId);
+            mailingList.Segments.Add(segment);
 
             await context.SaveChangesAsync();
         }

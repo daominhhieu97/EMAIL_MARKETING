@@ -26,11 +26,13 @@
         "dependencies": {
           "MailKit": "2.4.1",
           "Microsoft.AspNetCore.Authentication.Facebook": "3.0.0",
+          "Microsoft.AspNetCore.Session": "2.2.0",
           "Microsoft.EntityFrameworkCore": "3.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "3.0.0",
           "Microsoft.Extensions.Logging.Debug": "3.0.0",
           "Microsoft.ML": "1.4.0",
+          "Microsoft.ML.LightGbm": "1.4.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0",
           "NToastNotify": "6.0.1",
           "Microsoft.AspNetCore.Antiforgery.Reference": "3.0.0.0",
@@ -102,7 +104,7 @@
           "Microsoft.AspNetCore.Server.Kestrel.Core": "3.0.0.0",
           "Microsoft.AspNetCore.Server.Kestrel": "3.0.0.0",
           "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets": "3.0.0.0",
-          "Microsoft.AspNetCore.Session": "3.0.0.0",
+          "Microsoft.AspNetCore.Session.Reference": "3.0.0.0",
           "Microsoft.AspNetCore.SignalR.Common": "3.0.0.0",
           "Microsoft.AspNetCore.SignalR.Core": "3.0.0.0",
           "Microsoft.AspNetCore.SignalR": "3.0.0.0",
@@ -310,6 +312,30 @@
         },
         "compile": {
           "EMAIL_MARKETING_THESIS_PROJECT.dll": {}
+        }
+      },
+      "LightGBM/2.2.3": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/lib_lightgbm.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/lib_lightgbm.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/lib_lightgbm.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/lightgbm.exe": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
       "MailKit/2.4.1": {
@@ -572,6 +598,15 @@
       "Microsoft.AspNetCore.Routing.Abstractions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
+        }
+      },
+      "Microsoft.AspNetCore.Session/2.2.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "2.2.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Caching.Abstractions": "3.0.1",
+          "Microsoft.Extensions.Logging.Abstractions": "3.0.1",
+          "Microsoft.Extensions.Options": "3.0.1"
         }
       },
       "Microsoft.AspNetCore.StaticFiles/2.2.0": {
@@ -1265,6 +1300,58 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {}
+        }
+      },
+      "Microsoft.ML.FastTree/1.4.0": {
+        "dependencies": {
+          "Microsoft.ML": "1.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ML.FastTree.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.4.28305.1"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libFastTreeNative.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libFastTreeNative.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x64/native/FastTreeNative.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "1.4.28305.1"
+          },
+          "runtimes/win-x86/native/FastTreeNative.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "1.4.28305.1"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ML.FastTree.dll": {}
+        }
+      },
+      "Microsoft.ML.LightGbm/1.4.0": {
+        "dependencies": {
+          "LightGBM": "2.2.3",
+          "Microsoft.ML": "1.4.0",
+          "Microsoft.ML.FastTree": "1.4.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ML.LightGbm.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.4.28305.1"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ML.LightGbm.dll": {}
         }
       },
       "Microsoft.Net.Http.Headers/2.2.0": {
@@ -3056,7 +3143,7 @@
         },
         "compileOnly": true
       },
-      "Microsoft.AspNetCore.Session/3.0.0.0": {
+      "Microsoft.AspNetCore.Session.Reference/3.0.0.0": {
         "compile": {
           "Microsoft.AspNetCore.Session.dll": {}
         },
@@ -4276,6 +4363,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "LightGBM/2.2.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HFXul6uz1YWe6orrXz1eJAFvvxYVWag7HG6h4XVubR+epVxaBJWFAprdMlkP4SQ4RxaEibFeO++1OzXc75dJDA==",
+      "path": "lightgbm/2.2.3",
+      "hashPath": "lightgbm.2.2.3.nupkg.sha512"
+    },
     "MailKit/2.4.1": {
       "type": "package",
       "serviceable": true,
@@ -4499,6 +4593,13 @@
       "sha512": "sha512-lRRaPN7jDlUCVCp9i0W+PB0trFaKB0bgMJD7hEJS9Uo4R9MXaMC8X2tJhPLmeVE3SGDdYI4QNKdVmhNvMJGgPQ==",
       "path": "microsoft.aspnetcore.routing.abstractions/2.2.0",
       "hashPath": "microsoft.aspnetcore.routing.abstractions.2.2.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Session/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lOjJVh293AKaOEPi1MIC1/G9gOVZMrve2a05o56oslK6bo0PMgMB17rmPomvqrJAjMdlWZ/MGdN2y78Z9wzWTw==",
+      "path": "microsoft.aspnetcore.session/2.2.0",
+      "hashPath": "microsoft.aspnetcore.session.2.2.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.StaticFiles/2.2.0": {
       "type": "package",
@@ -4786,6 +4887,20 @@
       "sha512": "sha512-l4Eq6s0IKm72jBK6aBlYYprfHOujSaZ883qpWzUTpAIbP8KSgDGnOHquagvpLrDSS7Gq1rT1KON9YUNcAc/vSw==",
       "path": "microsoft.ml.dataview/1.4.0",
       "hashPath": "microsoft.ml.dataview.1.4.0.nupkg.sha512"
+    },
+    "Microsoft.ML.FastTree/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vG52nZHU0JbSPeVGQqC4IrOeH9hSe1WtlwrLaG8dCIp3BBkjXX67WZkIOjGqcKGrlY2F5lj73h6lGQ6kt6yj4A==",
+      "path": "microsoft.ml.fasttree/1.4.0",
+      "hashPath": "microsoft.ml.fasttree.1.4.0.nupkg.sha512"
+    },
+    "Microsoft.ML.LightGbm/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SCB4+6vBjV4+Wm96gCZApzAF3BvoeJdB6wAgt8t+9u/nK0yFofxrz5nRZOLS7ZCyNgxwTAHB25NnAUHwdrGj4g==",
+      "path": "microsoft.ml.lightgbm/1.4.0",
+      "hashPath": "microsoft.ml.lightgbm.1.4.0.nupkg.sha512"
     },
     "Microsoft.Net.Http.Headers/2.2.0": {
       "type": "package",
@@ -6084,7 +6199,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.AspNetCore.Session/3.0.0.0": {
+    "Microsoft.AspNetCore.Session.Reference/3.0.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""

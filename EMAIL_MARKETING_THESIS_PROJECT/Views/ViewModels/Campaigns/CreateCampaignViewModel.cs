@@ -20,11 +20,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Views.ViewModels.Campaigns
 
         public int SelectedTemplateId { get; set; }
 
-        public SelectListItem[] GetMailingListItems()
-        {
-            return MailingLists.Select(m => new SelectListItem { Text = m.Title, Value = m.Id.ToString() }).ToArray();
-        }
-
         public List<Template> Templates { get; set; }
 
         public IEnumerable<SelectListItem> GetTemplateItems()

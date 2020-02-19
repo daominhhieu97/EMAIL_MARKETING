@@ -96,7 +96,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 toastNotification.AddErrorToastMessage("There was an error.");
             }
-            
 
             return RedirectToAction("GetTemplates");
         }

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Segment>
+
+@{
+    ViewData["Title"] = "ViewSegments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Segments</h4>
+
+<table class="table table-hover">
+    <thead class="table-primary">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                No. subscribers
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @item.Subscribers.Count
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="DetailsSegment" asp-route-id="@item.Id"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-primary" asp-action="DeleteSegment" asp-route-id="@item.Id"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

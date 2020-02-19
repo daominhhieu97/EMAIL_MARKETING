@@ -20,5 +20,7 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers
         public string Area { get; set; }
 
         public virtual List<MailingListSubscriber> MailingListsLink { get; set; }
+
+        public virtual Segment Segment { get; set; }
     }
 }

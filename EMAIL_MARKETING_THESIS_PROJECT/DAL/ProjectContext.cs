@@ -24,6 +24,20 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
             MapSubsciber(modelBuilder);
             MapRFMSubscriber(modelBuilder);
             MapMailingListSubscriber(modelBuilder);
+            MapSegment(modelBuilder);
+        }
+
+        private void MapSegment(ModelBuilder modelBuilder)
+        {
+            var entity = modelBuilder.Entity<Segment>();
+
+            entity.HasKey(e => new { e.Id });
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.Name)
+                .HasColumnType("nvarchar(MAX)")
+                .IsRequired();
+
+            entity.HasOne(s => s.MailingList).WithMany(m => m.Segments);
         }
 
         private void MapMailingListSubscriber(ModelBuilder modelBuilder)
@@ -163,5 +177,11 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.DAL
         public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Campaign> Campaign { get; set; }
 
         public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Template> Template { get; set; }
+
+        public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Customer.Customer> Customer { get; set; }
+
+        public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns.Segment> Segment { get; set; }
+
+        public DbSet<EMAIL_MARKETING_THESIS_PROJECT.Models.Subscribers.RFMSubscriber> RFMSubscriber { get; set; }
     }
 }

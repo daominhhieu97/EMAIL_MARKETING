@@ -20,6 +20,8 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.Campaigns
 
         public virtual MailingList MailingList { get; set; }
 
+        public int? SegmentId { get; set; }
+
         public virtual Scheduler Scheduler { get; set; }
 
         public void Update(Campaign updatedCampaign)

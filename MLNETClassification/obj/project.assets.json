@@ -2,6 +2,30 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
+      "LightGBM/2.2.3": {
+        "type": "package",
+        "build": {
+          "build/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/lib_lightgbm.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/lib_lightgbm.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/lib_lightgbm.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x64/native/lightgbm.exe": {
+            "assetType": "native",
+            "rid": "win-x64"
+          }
+        }
+      },
       "Microsoft.CSharp/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -120,6 +144,53 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.ML.DataView.dll": {}
+        }
+      },
+      "Microsoft.ML.FastTree/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.ML": "1.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ML.FastTree.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ML.FastTree.dll": {}
+        },
+        "build": {
+          "build/netstandard2.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libFastTreeNative.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/osx-x64/native/libFastTreeNative.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-x64/native/FastTreeNative.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/FastTreeNative.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "Microsoft.ML.LightGbm/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "LightGBM": "2.2.3",
+          "Microsoft.ML": "1.4.0",
+          "Microsoft.ML.FastTree": "1.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.ML.LightGbm.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.ML.LightGbm.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {
@@ -1524,10 +1595,41 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlDocument.dll": {}
         }
+      },
+      "EMAIL_MARKETING_THESIS_PROJECTML.Model/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Microsoft.ML": "1.4.0",
+          "Microsoft.ML.LightGBM": "1.4.0"
+        },
+        "compile": {
+          "bin/placeholder/EMAIL_MARKETING_THESIS_PROJECTML.Model.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EMAIL_MARKETING_THESIS_PROJECTML.Model.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "LightGBM/2.2.3": {
+      "sha512": "HFXul6uz1YWe6orrXz1eJAFvvxYVWag7HG6h4XVubR+epVxaBJWFAprdMlkP4SQ4RxaEibFeO++1OzXc75dJDA==",
+      "type": "package",
+      "path": "lightgbm/2.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/LightGBM.props",
+        "build/LightGBM.targets",
+        "lightgbm.2.2.3.nupkg.sha512",
+        "lightgbm.nuspec",
+        "runtimes/linux-x64/native/lib_lightgbm.so",
+        "runtimes/osx-x64/native/lib_lightgbm.dylib",
+        "runtimes/win-x64/native/lib_lightgbm.dll",
+        "runtimes/win-x64/native/lightgbm.exe"
+      ]
+    },
     "Microsoft.CSharp/4.3.0": {
       "sha512": "P+MBhIM0YX+JqROuf7i306ZLJEjQYA9uUyRDE+OqwUI5sh41e2ZbPQV3LfAPh+29cmceE1pUffXsGfR4eMY3KA==",
       "type": "package",
@@ -1659,6 +1761,43 @@
         "lib/netstandard2.0/Microsoft.ML.DataView.xml",
         "microsoft.ml.dataview.1.4.0.nupkg.sha512",
         "microsoft.ml.dataview.nuspec",
+        "mlnetlogo.png"
+      ]
+    },
+    "Microsoft.ML.FastTree/1.4.0": {
+      "sha512": "vG52nZHU0JbSPeVGQqC4IrOeH9hSe1WtlwrLaG8dCIp3BBkjXX67WZkIOjGqcKGrlY2F5lj73h6lGQ6kt6yj4A==",
+      "type": "package",
+      "path": "microsoft.ml.fasttree/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.TXT",
+        "build/netstandard2.0/Microsoft.ML.FastTree.props",
+        "lib/netstandard2.0/Microsoft.ML.FastTree.dll",
+        "lib/netstandard2.0/Microsoft.ML.FastTree.xml",
+        "microsoft.ml.fasttree.1.4.0.nupkg.sha512",
+        "microsoft.ml.fasttree.nuspec",
+        "mlnetlogo.png",
+        "runtimes/linux-x64/native/libFastTreeNative.so",
+        "runtimes/osx-x64/native/libFastTreeNative.dylib",
+        "runtimes/win-x64/native/FastTreeNative.dll",
+        "runtimes/win-x86/native/FastTreeNative.dll"
+      ]
+    },
+    "Microsoft.ML.LightGbm/1.4.0": {
+      "sha512": "SCB4+6vBjV4+Wm96gCZApzAF3BvoeJdB6wAgt8t+9u/nK0yFofxrz5nRZOLS7ZCyNgxwTAHB25NnAUHwdrGj4g==",
+      "type": "package",
+      "path": "microsoft.ml.lightgbm/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netstandard2.0/Microsoft.ML.LightGbm.dll",
+        "lib/netstandard2.0/Microsoft.ML.LightGbm.xml",
+        "microsoft.ml.lightgbm.1.4.0.nupkg.sha512",
+        "microsoft.ml.lightgbm.nuspec",
         "mlnetlogo.png"
       ]
     },
@@ -5495,10 +5634,16 @@
         "system.xml.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xmldocument.nuspec"
       ]
+    },
+    "EMAIL_MARKETING_THESIS_PROJECTML.Model/1.0.0": {
+      "type": "project",
+      "path": "../EMAIL_MARKETING_THESIS_PROJECT/EMAIL_MARKETING_THESIS_PROJECTML.Model/EMAIL_MARKETING_THESIS_PROJECTML.Model.csproj",
+      "msbuildProject": "../EMAIL_MARKETING_THESIS_PROJECT/EMAIL_MARKETING_THESIS_PROJECTML.Model/EMAIL_MARKETING_THESIS_PROJECTML.Model.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
+      "EMAIL_MARKETING_THESIS_PROJECTML.Model >= 1.0.0",
       "Microsoft.ML >= 1.4.0"
     ]
   },
@@ -5527,7 +5672,11 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\DAO MINH HIEU\\source\\repos\\THESIS_EMAIL_MARKETING_WEB_APPLICATION\\EMAIL_MARKETING\\EMAIL_MARKETING_THESIS_PROJECT\\EMAIL_MARKETING_THESIS_PROJECTML.Model\\EMAIL_MARKETING_THESIS_PROJECTML.Model.csproj": {
+              "projectPath": "C:\\Users\\DAO MINH HIEU\\source\\repos\\THESIS_EMAIL_MARKETING_WEB_APPLICATION\\EMAIL_MARKETING\\EMAIL_MARKETING_THESIS_PROJECT\\EMAIL_MARKETING_THESIS_PROJECTML.Model\\EMAIL_MARKETING_THESIS_PROJECTML.Model.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

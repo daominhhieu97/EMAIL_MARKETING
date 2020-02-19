@@ -107,7 +107,6 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             {
                 toastNotification.AddErrorToastMessage($"Deleted {mailingList.Title} mailing list failed.");
             }
-            
 
             return RedirectToAction("GetMailingLists", "MailingList");
         }
@@ -235,6 +234,46 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Controllers
             context.SaveChanges();
 
             return RedirectToAction("Details", "MailingList", new { id = mailinglistId });
+        }
+
+        [HttpGet]
+        public IActionResult ViewSegments(int id)
+        {
+            var segments = context.Set<Segment>()
+                .Include(s => s.Subscribers)
+                .Include(s => s.MailingList)
+                .Where(s => s.MailingList.Id == id).ToList();
+
+            return View(segments);
+        }
+
+        public IActionResult DetailsSegment(int id)
+        {
+            var segment = context.Set<Segment>().Include(s => s.Subscribers).Single(s => s.Id == id);
+
+            return View(segment);
+        }
+
+        public IActionResult DeleteSegment(int id)
+        {
+            var segment = context.Set<Segment>().Include(s => s.MailingList).Single(s => s.Id == id);
+            context.Set<Segment>().Remove(segment);
+            context.SaveChanges();
+
+            return RedirectToAction("ViewSegments", new { id = segment.MailingList.Id });
+        }
+
+        public IActionResult DeleteAllSubscribers(int id)
+        {
+            var segment = context.Set<Segment>()
+                .Include(s => s.MailingList)
+                .Include(s => s.Subscribers)
+                .Single(s => s.Id == id);
+
+            context.Set<RFMSubscriber>().RemoveRange(segment.Subscribers);
+            context.SaveChanges();
+
+            return RedirectToAction("ViewSegments", new{id = segment.MailingList.Id} );
         }
     }
 }

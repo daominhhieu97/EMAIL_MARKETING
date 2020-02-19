@@ -23,34 +23,17 @@ namespace EMAIL_MARKETING_THESIS_PROJECT.Models.CustomerAnalyzers
 
     private bool SubscriberIsGood(RFMSubscriber rfmSubscriber, CriteriaViewModel criteria)
     {
-      bool flag = false;
+      var flagName = !string.IsNullOrEmpty(criteria.Name) && rfmSubscriber.Name.Contains(criteria.Name);
 
-      if (!string.IsNullOrEmpty(criteria.Name) && rfmSubscriber.Name.Contains(criteria.Name))
-      {
-        flag = true;
-      }
+      var flagAge = criteria.Age == 0 || rfmSubscriber.Age == criteria.Age;
 
-      if (rfmSubscriber.Age == criteria.Age)
-      {
-        flag = true;
-      }
+      var flagCity = !string.IsNullOrEmpty(criteria.City) && rfmSubscriber.City.Contains(criteria.City);
 
-      if (!string.IsNullOrEmpty(criteria.City) && rfmSubscriber.City.Contains(criteria.City))
-      {
-        flag = true;
-      }
+      var flagArea = !string.IsNullOrEmpty(criteria.Area) && rfmSubscriber.Area.Contains(criteria.Area);
 
-      if (!string.IsNullOrEmpty(criteria.Area) && rfmSubscriber.Area.Contains(criteria.Area))
-      {
-        flag = true;
-      }
+      var flagEmail = !string.IsNullOrEmpty(criteria.Email) && rfmSubscriber.Email.Contains(criteria.Email);
 
-      if (!string.IsNullOrEmpty(criteria.Email) && rfmSubscriber.Email.Contains(criteria.Email))
-      {
-        flag = true;
-      }
-
-      return flag;
+      return flagEmail || flagAge || flagArea || flagCity || flagName;
     }
   }
 }
